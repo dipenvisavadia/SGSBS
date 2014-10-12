@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="100%"
+		 height="100%" verticalAlign="top">
+	
+	<fx:Script>
+		<![CDATA[
+			private var custName:String;
+			private function clearCustomerDetails():void
+			{
+				
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:RadioButtonGroup id="bookingTimeRBGrp"/>
+		<s:RadioButtonGroup id="acRoomRBGrp"/>
+		<s:RadioButtonGroup id="nonACRoomRBGrp"/>
+	</fx:Declarations>
+	<s:Panel title="Select Booking Date" width="180" height="100%">
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>
+		<mx:DateChooser width="100%" height="100%"/>
+		<s:Label text="Timing:" fontWeight="bold"/>
+		<s:VGroup width="100%" height="100%">
+			<s:RadioButton value="FULL_DAY" label="6am-10pm(Full Day)" groupName="bookingTimeRBGrp"/>
+			<s:RadioButton value="HALF_DAY_1" label="6am-2pm(Half Day)" groupName="bookingTimeRBGrp"/>
+			<s:RadioButton value="HALF_DAY_2" label="4pm-10pm(Half Day)" groupName="bookingTimeRBGrp"/>
+			<s:RadioButton value="4_HR_1" label="10am-2pm(4 Hours)" groupName="bookingTimeRBGrp"/>
+			<s:RadioButton value="4_HR_2" label="6pm-10pm(4 Hours)" groupName="bookingTimeRBGrp"/>
+			<s:RadioButton value="Prathana_1" label="4pm-6.30pm(Prathana Sabha)" groupName="bookingTimeRBGrp"/>
+			<s:RadioButton value="Prathana_2" label="5pm-7.30pm(Prathana Sabha)" groupName="bookingTimeRBGrp"/>
+		</s:VGroup>
+	</s:Panel>
+	
+	<s:Panel title="Enter Booking Details" width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>	
+		<s:BorderContainer width="100%" borderStyle="solid" cornerRadius="8">
+			<s:layout>
+				<s:VerticalLayout paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"/>
+			</s:layout>
+			
+			<s:Group width="100%">
+				<s:Label text="Name" x="10" y="10"/>
+				<s:TextInput width="200" y="25" x="10"/>
+				<s:Spacer width="15"  x="210" y="10"/>
+				
+				<s:Label text="Contact"  x="225" y="10"/>
+				<s:TextInput width="120" x="225" y="25"/>
+				
+				<s:Spacer width="15"  x="345" y="10"/>
+				<s:Label text="PAN CARD No"  x="360" y="10"/>
+				<s:TextInput width="120" x="360" y="25"/>
+				<s:Button label="X" fontWeight="bold" click="{clearCustomerDetails();}"/>
+			</s:Group>
+			
+		</s:BorderContainer>
+		
+		<s:BorderContainer width="500" borderStyle="solid" cornerRadius="8">
+			<s:layout>
+				<s:HorizontalLayout paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"/>
+			</s:layout>
+			
+			<s:VGroup>
+				<s:Label text="A/C Rooms" fontWeight="bold"/>
+				<s:VGroup width="100%" height="100%">
+					<s:RadioButton  label="Ground Hall A/C+Ground on A/C" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label="Ground Hall A/C+Non A/C + 1st Floor A/C" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label="Ground Hall A/C" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label=" 1st Floor A/C+ 2nd Floor A/C" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label="4Hr A/C Hall" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label="Prathana Sabha with A/C" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label="Extra A/C Rooms" groupName="acRoomRBGrp"/>
+					<s:RadioButton  label="Extra A/C Hours" groupName="acRoomRBGrp"/>
+				</s:VGroup>	
+			</s:VGroup>
+			
+			<s:VGroup>
+				<s:Label text="Non A/C Rooms" fontWeight="bold"/>
+				<s:VGroup width="100%" height="100%">
+					<s:RadioButton  label="2nd Floor+ Terrace" groupName="nonACRoomRBGrp"/>
+					<s:RadioButton  label="Only 2nd Floor" groupName="nonACRoomRBGrp"/>
+					<s:RadioButton  label="Only Terrace" groupName="nonACRoomRBGrp"/>
+					<s:RadioButton  label="4Hr Non A/C Hall" groupName="nonACRoomRBGrp"/>
+					<s:RadioButton  label="Prathana Sabha with out A/C" groupName="nonACRoomRBGrp"/>
+					<s:RadioButton  label="Extra Non A/C Hours" groupName="nonACRoomRBGrp"/>
+				</s:VGroup>	
+			</s:VGroup>
+		</s:BorderContainer>
+	</s:Panel>	
+	
+	<s:Panel title="Current Booking Services" width="100%" height="100%">		
+		<mx:AdvancedDataGrid width="100%" height="100%">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="Date"/>
+				<mx:AdvancedDataGridColumn headerText="Service Type"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</s:Panel>
+	
+	
+</s:HGroup>

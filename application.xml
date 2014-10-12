@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/14.0">
+  <id>SGSBS</id>
+  <versionNumber>1.0</versionNumber>
+  <filename>SGSBS</filename>
+  <name>SGSBS</name>
+  <initialWindow>
+    <title>SGSBS</title>
+    <content>SGSBS.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <minimizable>true</minimizable>
+    <maximizable>true</maximizable>
+    <resizable>false</resizable>
+    <minSize>1000 700</minSize>
+    <width>1000</width>
+    <height>700</height>
+  </initialWindow>
+  <!-- 
+	More options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	-->
+</application>

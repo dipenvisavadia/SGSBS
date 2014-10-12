@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- containers\spark\SparkSkinnablePopUpContainerReturn.mxml -->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:SGSComps="components.*"
+	applicationComplete="init()" status="{appStatusStr}" title="{appTitleStr}"
+	>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import components.SQLManager;
+			
+			[Bindable]
+			private var appStatusStr:String = 'SGS Billing System © 2014';
+			[Bindable]
+			private var appTitleStr:String = 'Shree Gurjar Sutar Vishwakara Baug, Mumbai - Billing System';
+			private var sqlMngr:SQLManager;
+			
+			private function addNewBooking():void
+			{
+				
+			}
+			
+			private function init():void {
+				sqlMngr = new SQLManager();
+				sqlMngr.addEventListener(Event.COMPLETE, showLoginPanel);
+				sqlMngr.addEventListener('LOGIN_SUCCESS', function():void {mainViewStack.selectedIndex = 2;});
+			}
+			
+			private function showLoginPanel(E:Event):void {
+				mainViewStack.selectedIndex = 1;
+			}
+			
+			public function checkPassword(uNameInput:String, pwdInput:String):void {
+				sqlMngr.checkPassword(uNameInput, pwdInput);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" gap="0"/>
+	</s:layout>
+	
+	<SGSComps:AppHeader></SGSComps:AppHeader>
+	
+	<mx:ViewStack id="mainViewStack" width="100%" height="100%" selectedIndex="0" borderStyle="solid" borderColor="blue">
+		<s:NavigatorContent width="100%" height="100%">
+			<SGSComps:AddBookingComp/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent label="splashNav" width="100%" height="100%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center" paddingTop="100"/>
+			</s:layout>
+			<SGSComps:AddBookingComp/>
+			<!--<s:Image id="loader1" source="@Embed(source='assets/flexlogo.jpg')"/>-->
+		</s:NavigatorContent>
+		<s:NavigatorContent label="loginNav" width="100%" height="100%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center" paddingTop="100"/>
+			</s:layout>
+			<SGSComps:LoginPanel></SGSComps:LoginPanel>
+		</s:NavigatorContent>
+		<s:NavigatorContent label="dashBoardNav" width="100%" height="100%">
+			<s:layout>
+				<s:TileLayout horizontalAlign="center"/>
+			</s:layout>
+			<s:Button label="Booking" click="{addNewBooking();}"/>
+			<s:Button label="Cancel Booking"/>
+			<s:Button label="Set Rates"/>
+			<s:Button label="Detail View"/>
+			<s:Button label="Statistical View"/>
+		</s:NavigatorContent>
+		
+	</mx:ViewStack>
+	
+</s:WindowedApplication>

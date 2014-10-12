@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- containers\spark\SparkSkinnablePopUpContainerReturn.mxml -->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+    applicationComplete="init()" status="{statusStr}">
+	
+	<!--<fx:Script>
+		<![CDATA[
+			import flash.data.SQLConnection;
+			import flash.data.SQLStatement;
+			import flash.events.SQLErrorEvent;
+			import flash.events.SQLEvent;
+			import flash.filesystem.File;
+			
+			private var conn:SQLConnection;
+			private var folder:File;
+			private var dbFile:File;
+			private var tblCreationStatement:SQLStatement;
+			
+			private function init():void {
+				conn = new flash.data.SQLConnection();
+				
+				conn.addEventListener(SQLEvent.OPEN, openHandler);
+				conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);
+				
+				folder = File.applicationDirectory;
+				dbFile = folder.resolvePath("database/SGSBS.db");
+				
+				conn.openAsync(dbFile);
+			}
+			
+			private function openHandler(SQLE:SQLEvent):void {
+				trace('The databse created successfully');
+				tblCreationStatement = new SQLStatement();
+				tblCreationStatement.sqlConnection = conn;
+				
+				var tblCretStr:String =
+					"CREATE TABLE IF NOT EXISTS CUST_MS (" +
+					"CUST_MS_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					"FRST_NM TEXT, " +
+					"LST_NM TEXT, " +
+					"PAN TEXT, " +
+					"CNTCT_NUM TEXT, " +
+					"EMAIL TEXT, " +
+					"ADRS TEXT " +
+					")";
+				
+				tblCreationStatement.text = tblCretStr;
+				
+				tblCreationStatement.addEventListener(SQLEvent.RESULT, tblCreationHandler);
+				tblCreationStatement.addEventListener(SQLErrorEvent.ERROR, tblCreationErrorHandler);
+				
+				tblCreationStatement.execute();
+			}
+			
+			private function errorHandler(SQLERRE:SQLErrorEvent):void {
+				trace('Error Message:', SQLERRE.error.message);
+				trace('Details:', SQLERRE.error.details);
+			}
+			
+			private function tblCreationHandler(SQLE:SQLEvent):void {
+				trace('Table created successfully');
+			}
+			
+			private function tblCreationErrorHandler(SQLERRE:SQLErrorEvent):void {
+				trace('Error Message:', SQLERRE.error.message);
+				trace('Details:', SQLERRE.error.details);
+			}
+		]]>
+	</fx:Script>-->
+	
+	<fx:Script> 
+        <![CDATA[
+			[Bindable]
+			private var statusStr:String = 'Dipen';
+            private function init():void  
+            { 
+				
+            } 
+        ]]> 
+    </fx:Script>
+	
+</s:WindowedApplication>

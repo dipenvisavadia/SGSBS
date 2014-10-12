@@ -1,0 +1,8 @@
+Check if db is available
+if not copy it from db template
+check if internet connection is available
+if yes, check date of latest db file on server
+if it's same as today, do nothing else upload current db
+open connection with db
+connect to USER_MS table
+show login panel
