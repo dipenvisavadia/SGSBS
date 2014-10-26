@@ -2,7 +2,7 @@
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="100%"
-		 height="100%" verticalAlign="top">
+		 height="100%" verticalAlign="top" paddingTop="0">
 	
 	<fx:Script>
 		<![CDATA[
@@ -18,7 +18,8 @@
 		<s:RadioButtonGroup id="acRoomRBGrp"/>
 		<s:RadioButtonGroup id="nonACRoomRBGrp"/>
 	</fx:Declarations>
-	<s:Panel title="Select Booking Date" width="180" height="100%">
+	
+	<s:Panel title="Select Booking Date" width="180" height="500">
 		<s:layout>
 			<s:VerticalLayout/>
 		</s:layout>
@@ -45,17 +46,23 @@
 			</s:layout>
 			
 			<s:Group width="100%">
-				<s:Label text="Name" x="10" y="10"/>
-				<s:TextInput width="200" y="25" x="10"/>
-				<s:Spacer width="15"  x="210" y="10"/>
 				
-				<s:Label text="Contact"  x="225" y="10"/>
-				<s:TextInput width="120" x="225" y="25"/>
+				<s:CheckBox label="Member" x="10" y="10"/>
 				
-				<s:Spacer width="15"  x="345" y="10"/>
-				<s:Label text="PAN CARD No"  x="360" y="10"/>
-				<s:TextInput width="120" x="360" y="25"/>
-				<s:Button label="X" fontWeight="bold" click="{clearCustomerDetails();}"/>
+				<s:Label text="Name" x="10" y="30"/>
+				<s:TextInput width="200" y="50" x="10"/>
+				<s:Spacer width="15"  x="210" y="30"/>
+				
+				<s:Label text="Contact"  x="225" y="30"/>
+				<s:TextInput width="120" x="225" y="50"/>
+				
+				<s:Spacer width="15"  x="345" y="30"/>
+				<s:Label text="PAN CARD No"  x="360" y="30"/>
+				<s:TextInput width="120" x="360" y="50"/>
+				
+				
+				
+				<s:Button label="Reset" fontWeight="bold" click="{clearCustomerDetails();}" x="10" y="90"/>
 			</s:Group>
 			
 		</s:BorderContainer>

@@ -2,7 +2,7 @@ package components {
 	/**
 	 * ...
 	 * @author Dipen Visavadia
-	 */0
+	 */
 	import flash.data.SQLConnection;
 	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
