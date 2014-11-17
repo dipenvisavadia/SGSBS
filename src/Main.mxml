@@ -5,6 +5,8 @@
 	xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:SGSComps="components.*"
 	applicationComplete="{goFullScreen(true);init();}" status="{appStatusStr}" title="{appTitleStr}"
+	
+	
 	>
 	
 	<fx:Script>
