@@ -4,9 +4,7 @@
 	xmlns:s="library://ns.adobe.com/flex/spark"
 	xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:SGSComps="components.*"
-	applicationComplete="{goFullScreen(true);init();}" status="{appStatusStr}" title="{appTitleStr}"
-	
-	
+	applicationComplete="{goFullScreen(true);init();}" status="{appStatusStr}" title="{appTitleStr}" xmlns:Booking="components.Booking.*"
 	>
 	
 	<fx:Script>
@@ -117,14 +115,14 @@
 	<mx:ViewStack id="mainViewStack" width="100%" height="100%" selectedIndex="0" 
 				  borderStyle="solid">
 		<s:NavigatorContent width="100%" height="100%">
-			<SGSComps:AddBookingComp/>
+			<Booking:AddBookingComp/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent label="splashNav" width="100%" height="100%">
 			<!--<s:layout>
 				<s:VerticalLayout horizontalAlign="center" paddingTop="100"/>
 			</s:layout>-->
-			<SGSComps:AddBookingComp/>
+			<Booking:AddBookingComp/>
 			<!--<s:Image id="loader1" source="@Embed(source='assets/flexlogo.jpg')"/>-->
 		</s:NavigatorContent>
 		<s:NavigatorContent label="loginNav" width="100%" height="100%">

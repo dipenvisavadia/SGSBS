@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" 
+		 xmlns:components="com.hillelcoren.components.*" xmlns:renderer="renderer.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import renderer.CustomerSelectorItemRenderer;
+			[Bindable]
+			public var customers:ArrayCollection = new ArrayCollection([
+				{first_name:"Mukesh",contactnum1:"123456789",city:"Mahavir Nagar"},
+				{first_name:"Dipen",contactnum1:"123456789",city:"Saibaba Nagar"},
+				{first_name:"Smith",contactnum1:"123456789",city:"Saibaba Nagar"}
+			]);
+			
+			private function handleAutoCompleteChange():void
+			{
+				/* var customer:Object = autoComplete.selectedItem;
+				trace(""+customer.first_name); */
+			}
+			
+			private function startBookingForSelectedCustomer(custObj:Object):void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!--<fx:Component id="dropDownItemRenderer">
+			<renderer:CustomerSelectorItemRenderer selectedItems="{ outerDocument.autoComplete.selectedItems }" />
+		</fx:Component>-->
+	</fx:Declarations>
+	<s:BorderContainer width="400" height="150" horizontalCenter="0" verticalCenter="0">
+		
+		<s:Rect width="100%" height="30">
+			<s:fill>
+				<s:SolidColor color="#999999"/>
+			</s:fill>
+		</s:Rect>
+		<s:Label text="New Booking" fontWeight="bold" width="100%" textAlign="center" paddingTop="8"/>
+		
+		<s:HGroup width="100%" y="40" paddingLeft="8" paddingRight="8" paddingTop="8">
+			<s:Label text="Customer:" fontWeight="bold" textAlign="left"/>
+			<components:AutoComplete id="autoComplete" dataProvider="{ customers }" labelField="first_name" matchType="anyPart" 
+									 prompt="Input customer first name" width="100%" change="{ handleAutoCompleteChange() }"
+									 allowNewValues="false" selectedItemStyleName="{ AutoComplete.STYLE_MAC_MAIL }" backspaceAction="focus" 
+									 allowDuplicates="true" allowMultipleSelection="false" 
+									 allowEditingNewValues="false" ><!--dropDownItemRenderer="{ dropDownItemRenderer }"-->
+			</components:AutoComplete>
+			<s:Button label="Book" click="{startBookingForSelectedCustomer(autoComplete.text)}" />
+		</s:HGroup>
+	</s:BorderContainer>
+	
+</s:Group>
