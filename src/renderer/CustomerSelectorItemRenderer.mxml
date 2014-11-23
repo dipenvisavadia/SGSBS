@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+		 updateComplete="handleUpdate()">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import com.hillelcoren.utils.StringUtils;
+			import mx.utils.StringUtil;
+			import mx.events.FlexEvent;
+			import mx.controls.List;
+			
+			[Bindable]
+			private var _list:List;
+			
+			private var _selectedItems:ArrayCollection;
+			
+			public function set selectedItems( value:ArrayCollection ):void
+			{
+				_selectedItems = value;
+			}
+			
+			override public function set data( value:Object ):void
+			{
+				super.data = value;
+				
+				if (!value)
+				{
+					return;
+				}
+				
+				_list = owner as List;
+				
+				nameLabel.text = _list.labelFunction( value );
+				secondFieldLabel.text = value.contactnum1;						
+			}
+			
+			private function handleUpdate():void
+			{
+				// There must be a better way to draw a line between each 
+				// of the items in the list
+				graphics.clear();
+				graphics.lineStyle( 1, 0x858585, 0.5 );
+				graphics.moveTo( -2, height + 2);
+				graphics.lineTo( width, height + 2 );
+			}			
+			
+		]]>
+	</fx:Script>
+	<s:VGroup width="100%">
+		<s:Label id="nameLabel" fontSize="12"/>
+		<s:Label id="secondFieldLabel" fontSize="12"/>
+	</s:VGroup>
+</s:ItemRenderer>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="100%"
+		 height="100%" verticalAlign="top" paddingTop="0" xmlns:renderer="renderer.*" xmlns:Booking="components.Booking.*"
+		 xmlns:components="com.hillelcoren.components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import renderer.CustomerSelectorItemRenderer;
+			
+			private function clearCustomerDetails():void
+			{
+				
+			}
+			
+			private var custName:String;
+			
+			[Bindable]
+			public var customers:ArrayCollection = new ArrayCollection([
+				{first_name:"Mukesh",contactnum1:"123456789",city:"Mahavir Nagar"},
+				{first_name:"Dipen",contactnum1:"123456789",city:"Saibaba Nagar"},
+				{first_name:"Smith",contactnum1:"123456789",city:"Saibaba Nagar"}
+			]);
+			
+			private function handleAutoCompleteChange():void
+			{
+				/* var customer:Object = autoComplete.selectedItem;
+				trace(""+customer.first_name); */
+			}
+			
+			private function startBookingForSelectedCustomer(custObj:Object):void
+			{
+				trace(""+customerMembershipTypeGrp.selectedValue);
+				bookingNavigator.selectedIndex = 1;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:RadioButtonGroup id="bookingTimeRBGrp"/>
+		<s:RadioButtonGroup id="acRoomRBGrp"/>
+		<s:RadioButtonGroup id="nonACRoomRBGrp"/>
+		<s:RadioButtonGroup id="customerMembershipTypeGrp"/>
+		
+	</fx:Declarations>
+	
+	<mx:ViewStack width="100%" height="100%" id="bookingNavigator">
+		<s:NavigatorContent>
+			<s:BorderContainer width="400" height="150" horizontalCenter="0" verticalCenter="0">
+				
+				<s:Rect width="100%" height="30">
+					<s:fill>
+						<s:SolidColor color="#999999"/>
+					</s:fill>
+				</s:Rect>
+				<s:Label text="New Booking" fontWeight="bold" width="100%" textAlign="center" paddingTop="8"/>
+				
+				<s:HGroup width="100%" y="40" height="30" paddingLeft="8" paddingRight="8" paddingTop="8">
+					<s:RadioButton id="memberRD" groupName="customerMembershipTypeGrp" value="MEMBER" label="Member"/>
+					<s:RadioButton id="nonMemberRD" groupName="customerMembershipTypeGrp" value="NONMEMBER" label="Non-Member"/>
+				</s:HGroup>
+					
+				<s:HGroup width="100%" y="80" paddingLeft="8" paddingRight="8" paddingTop="8" >
+					<s:Label text="Customer:" fontWeight="bold" textAlign="left"/>
+					<components:AutoComplete id="autoComplete" dataProvider="{ customers }" labelField="first_name" matchType="anyPart" 
+											 prompt="Input customer first name" width="100%" change="{ handleAutoCompleteChange() }"
+											 allowNewValues="false" selectedItemStyleName="{ AutoComplete.STYLE_MAC_MAIL }" backspaceAction="focus" 
+											 allowDuplicates="true" allowMultipleSelection="false" 
+											 allowEditingNewValues="false" ><!--dropDownItemRenderer="{ dropDownItemRenderer }"-->
+					</components:AutoComplete>
+					<s:Button label="Book" click="{startBookingForSelectedCustomer(autoComplete.text)}" />
+				</s:HGroup>
+			</s:BorderContainer>
+
+		</s:NavigatorContent>
+		<s:NavigatorContent>
+			<s:Panel title="Enter Booking Details" width="100%" height="100%">
+				<s:layout>
+					<s:VerticalLayout/>
+				</s:layout>	
+				<s:BorderContainer width="100%" borderStyle="solid" cornerRadius="8">
+					<s:layout>
+						<s:VerticalLayout paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"/>
+					</s:layout>
+					
+					<s:Group width="100%">
+						
+						<s:CheckBox label="Member" x="10" y="10"/>
+						
+						<s:Label text="Name" x="10" y="30"/>
+						<s:TextInput width="200" y="50" x="10"/>
+						<s:Spacer width="15"  x="210" y="30"/>
+						
+						<s:Label text="Contact"  x="225" y="30"/>
+						<s:TextInput width="120" x="225" y="50"/>
+						
+						<s:Spacer width="15"  x="345" y="30"/>
+						<s:Label text="PAN CARD No"  x="360" y="30"/>
+						<s:TextInput width="120" x="360" y="50"/>
+						
+						
+						
+						<s:Button label="Reset" fontWeight="bold" click="{clearCustomerDetails();}" x="10" y="90"/>
+					</s:Group>
+					
+					<mx:AdvancedDataGrid width="100%" height="100%">
+						<mx:columns>
+							<mx:AdvancedDataGridColumn headerText="Date"/>
+							<mx:AdvancedDataGridColumn headerText="Service Type"/>
+						</mx:columns>
+					</mx:AdvancedDataGrid>
+				</s:BorderContainer>
+			</s:Panel>	
+
+		</s:NavigatorContent>
+	</mx:ViewStack>
+		<!--
+	<s:Panel title="Current Booking Services" width="100%" height="100%">		
+		
+	</s:Panel>
+	-->
+	
+</s:HGroup>
