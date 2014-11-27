@@ -50,7 +50,7 @@ package components {
 			conn.addEventListener(SQLEvent.OPEN, openHandler);
 			conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);
 			folder = File.applicationDirectory;
-			dbFile = folder.resolvePath("database/SGSBS.db");
+			dbFile = folder.resolvePath("SGSBS.db");
 			conn.openAsync(dbFile);
 		}
 		
