@@ -2,33 +2,89 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Script>
+		<![CDATA[
+			[Bindable]var comments:String ;
+			[Bindable]var email:String ;
+			[Bindable]var city:String ;
+			[Bindable]var address:String ;
+			[Bindable]var contactnum2:String ;
+			[Bindable]var contactnum1:String ;
+			[Bindable]var PAN:String ;
+			[Bindable]var firstName:String ;
+			[Bindable]var middleName:String ;
+			[Bindable]var lastName:String ;
+		]]>
+	</fx:Script>
 	<s:Form width="100%" height="100%">
 		<s:FormHeading label="Add Customer"/>
-		<!--customer_id	first_name	middle_name	last_name	comm_member	pan	contactnum1	contactnum2	address	city	email	desc	lastmodified_by	lastmodified_date
--->
-		<s:FormItem label="First Name:">
-			<s:TextInput text="@{firstName}"/>
+		
+		<s:HGroup width="100%">
+			<s:VGroup width="50%">
+				<s:HGroup width="100%" gap="8">
+					<s:VGroup>
+						<s:Label text="First Name:"/>
+						<s:TextInput text="@{firstName}"/>	
+					</s:VGroup>
+					<s:VGroup>
+						<s:Label text="Middle Name:"/>
+						<s:TextInput text="@{middleName}"/>	
+					</s:VGroup>
+					<s:VGroup>
+						<s:Label text="Last Name:"/>
+						<s:TextInput text="@{lastName}"/>	
+					</s:VGroup>
+				</s:HGroup>
+				<!--member checkbox-->
+				<s:HGroup width="100%" gap="8">
+					<s:Label text="Customer is Member:"/>
+					<s:CheckBox/>
+				</s:HGroup>
+				<!--PAN input-->
+				<s:HGroup width="100%" gap="8">
+					<s:Label text="PAN"/>
+					<s:TextInput text="@{PAN}"/>
+				</s:HGroup>
+				<!--CONTACT input-->
+				<s:HGroup width="100%" gap="8">
+					<s:VGroup>
+						<s:Label text="Contact 1:"/>
+						<s:TextInput text="@{contactnum1}"/>	
+					</s:VGroup>
+					<s:VGroup>
+						<s:Label text="Contact 2:"/>
+						<s:TextInput text="@{contactnum2}"/>	
+					</s:VGroup>
+				</s:HGroup>
+			</s:VGroup>
+		</s:HGroup>
+		
+		<s:FormItem label="Address:">
+			<s:TextArea text="@{address}" height="80"/>
 			<s:helpContent>
-				<s:Label text="Enter Customer's firstname" />
+				<s:Label text="Enter Customer's address" />
 			</s:helpContent>
 		</s:FormItem>
-		<s:FormItem label="Middle Name:">
-			<s:TextInput text="@{middleName}"/>
+		<s:FormItem label="City:">
+			<s:TextInput text="@{city}" />
 			<s:helpContent>
-				<s:Label text="Enter Customer's middlename" />
+				<s:Label text="Enter Customer's address city" />
 			</s:helpContent>
 		</s:FormItem>
-		<s:FormItem label="Last Name:">
-			<s:TextInput text="@{lastName}"/>
+		<s:FormItem label="Email:">
+			<s:TextInput text="@{email}"/>
 			<s:helpContent>
-				<s:Label text="Enter Customer's lastname" />
+				<s:Label text="Enter Customer's email" />
 			</s:helpContent>
 		</s:FormItem>
-		<s:FormItem label="Customer is Member:">
-			<s:CheckBox/>
+		<s:FormItem label="Comments:">
+			<s:TextInput text="@{comments}"/>
 			<s:helpContent>
-				<s:Label text="Select if customer is member." />
+				<s:Label text="Enter some comments about Customer" />
 			</s:helpContent>
 		</s:FormItem>
+		
 	</s:Form>
+	
+	
 </s:Group>
