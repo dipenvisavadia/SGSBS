@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<s:Form width="100%" height="100%">
+		<s:FormHeading label="Add Customer"/>
+		<!--customer_id	first_name	middle_name	last_name	comm_member	pan	contactnum1	contactnum2	address	city	email	desc	lastmodified_by	lastmodified_date
+-->
+		<s:FormItem label="First Name:">
+			<s:TextInput text="@{firstName}"/>
+			<s:helpContent>
+				<s:Label text="Enter Customer's firstname" />
+			</s:helpContent>
+		</s:FormItem>
+		<s:FormItem label="Middle Name:">
+			<s:TextInput text="@{middleName}"/>
+			<s:helpContent>
+				<s:Label text="Enter Customer's middlename" />
+			</s:helpContent>
+		</s:FormItem>
+		<s:FormItem label="Last Name:">
+			<s:TextInput text="@{lastName}"/>
+			<s:helpContent>
+				<s:Label text="Enter Customer's lastname" />
+			</s:helpContent>
+		</s:FormItem>
+		<s:FormItem label="Customer is Member:">
+			<s:CheckBox/>
+			<s:helpContent>
+				<s:Label text="Select if customer is member." />
+			</s:helpContent>
+		</s:FormItem>
+	</s:Form>
+</s:Group>

@@ -3,19 +3,20 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="100%"
 		 height="100%" verticalAlign="top" paddingTop="0" xmlns:renderer="renderer.*" xmlns:Booking="components.Booking.*"
-		 xmlns:components="com.hillelcoren.components.*">
+		 xmlns:components="com.hillelcoren.components.*" xmlns:components1="common.components.*">
 	
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import renderer.CustomerSelectorItemRenderer;
 			
+			
 			private function clearCustomerDetails():void
 			{
 				
 			}
 			
-			private var custName:String;
+			[Bindable]private var customerName:String;
 			
 			[Bindable]
 			public var customers:ArrayCollection = new ArrayCollection([
@@ -33,7 +34,10 @@
 			private function startBookingForSelectedCustomer(custObj:Object):void
 			{
 				trace(""+customerMembershipTypeGrp.selectedValue);
+				
 				bookingNavigator.selectedIndex = 1;
+				
+				customerName = autoComplete.text ;
 			}
 			
 		]]>
@@ -64,12 +68,16 @@
 					
 				<s:HGroup width="100%" y="80" paddingLeft="8" paddingRight="8" paddingTop="8" >
 					<s:Label text="Customer:" fontWeight="bold" textAlign="left"/>
-					<components:AutoComplete id="autoComplete" dataProvider="{ customers }" labelField="first_name" matchType="anyPart" 
+					<components1:AutoCompleteModified id="autoComplete"
+									   width="180"
+									   dataProvider="{ customers }" labelField="first_name"
+									   />
+					<!--<components:AutoComplete id="autoComplete" dataProvider="{ customers }" labelField="first_name" matchType="anyPart" 
 											 prompt="Input customer first name" width="100%" change="{ handleAutoCompleteChange() }"
 											 allowNewValues="false" selectedItemStyleName="{ AutoComplete.STYLE_MAC_MAIL }" backspaceAction="focus" 
 											 allowDuplicates="true" allowMultipleSelection="false" 
-											 allowEditingNewValues="false" ><!--dropDownItemRenderer="{ dropDownItemRenderer }"-->
-					</components:AutoComplete>
+											 allowEditingNewValues="false" >
+					</components:AutoComplete>-->
 					<s:Button label="Book" click="{startBookingForSelectedCustomer(autoComplete.text)}" />
 				</s:HGroup>
 			</s:BorderContainer>
@@ -87,10 +95,10 @@
 					
 					<s:Group width="100%">
 						
-						<s:CheckBox label="Member" x="10" y="10"/>
+						<!--<s:CheckBox label="Member" x="10" y="10"/>-->
 						
 						<s:Label text="Name" x="10" y="30"/>
-						<s:TextInput width="200" y="50" x="10"/>
+						<s:TextInput width="200" y="50" x="10" text="@{customerName}"/>
 						<s:Spacer width="15"  x="210" y="30"/>
 						
 						<s:Label text="Contact"  x="225" y="30"/>
