@@ -13,6 +13,10 @@ package {
 		private var _lastmodified_by:String;
 		private var _lastmodified_date:String;
 		
+		public function UserVO {
+			
+		}
+		
 		public function get user_id():uint {
 			return _user_id;
 		}
