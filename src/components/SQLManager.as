@@ -18,17 +18,22 @@ package components {
 	import mx.controls.Alert;
 
 	import components.URLChecker;
+	import vos.CustomerVO;
+	import vos.UserVO;
 
 	public class SQLManager extends EventDispatcher {
+		
+		private var logsON:Boolean = true;
 		
 		private var conn:SQLConnection;
 		private var folder:File;
 		private var dbFile:File;
-		private var loginStatement:SQLStatement;
 		
 		private var urlChecker:URLChecker;
 		private var isLive:Boolean;
+		private var sqlStatement:SQLStatement;
 		
+		//LOGIN
 		private var pwdInput:String;
 		private var userRole:String;
 		
@@ -87,17 +92,21 @@ package components {
 		
 		public function checkPassword(uNameInput:String, pwdInput:String):void {
 			this.pwdInput = pwdInput;
-			loginStatement = new flash.data.SQLStatement();
-			loginStatement.text = 'SELECT * FROM USER_MS WHERE USER_NAME = "' + uNameInput + '";';
-			loginStatement.sqlConnection = conn;
-			loginStatement.addEventListener(SQLEvent.RESULT, loginResultHandler);
-			loginStatement.addEventListener(SQLErrorEvent.ERROR, loginErrorHandler);
-			loginStatement.execute();
+			sqlStatement = new flash.data.SQLStatement();
+			sqlStatement.text = 'select * from user_ms where user_name = "' + uNameInput + '";';
+			if (logsON) {
+				trace(sqlStatement.text);
+			}
+			sqlStatement.sqlConnection = conn;
+			sqlStatement.addEventListener(SQLEvent.RESULT, loginResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, loginErrorHandler);
+			sqlStatement.execute();
 		}
 		
 		private function loginResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, loginResultHandler);
 			var loginSuccess:Boolean = false;
-			var result:SQLResult = loginStatement.getResult();
+			var result:SQLResult = sqlStatement.getResult();
 			if (result.data) {
 				var numResults:int = result.data.length;
 				if (numResults == 1) {
@@ -123,7 +132,61 @@ package components {
 		}
 		
 		private function loginErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, loginErrorHandler);
+		}
+		
+		public function getAllCustomers(isMember:Boolean):void {
+			sqlStatement = new flash.data.SQLStatement();
+			sqlStatement.text = 'SELECT * FROM customer_ms WHERE comm_member = "' + ((isMember)?1:0) + '";';
+			if (logsON) {
+				trace(sqlStatement.text);
+			}
+			sqlStatement.sqlConnection = conn;
+			sqlStatement.addEventListener(SQLEvent.RESULT, customerResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+			sqlStatement.execute();
+		}
+		
+		private function customerResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, customerResultHandler);
+			//Update customer VO here
+		}
+		
+		private function customerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+		}
+		
+		public function addCustomer(custObj:CustomerVO):void {
+			sqlStatement = new flash.data.SQLStatement();
+			sqlStatement.text = "INSERT INTO customer_ms (first_name, middle_name, last_name, comm_member, pan, contactnum1, contactnum2, address, city, email, desc, lastmodified_by, lastmodified_date)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			sqlStatement.parameters[0] = custObj.first_name;
+			sqlStatement.parameters[1] = custObj.middle_name;
+			sqlStatement.parameters[2] = custObj.last_name;
+			sqlStatement.parameters[3] = custObj.comm_member;
+			sqlStatement.parameters[4] = custObj.pan;
+			sqlStatement.parameters[5] = custObj.contactnum1;
+			sqlStatement.parameters[6] = custObj.contactnum2;
+			sqlStatement.parameters[7] = custObj.address;
+			sqlStatement.parameters[8] = custObj.city;
+			sqlStatement.parameters[9] = custObj.email;
+			sqlStatement.parameters[10] = custObj.desc;
+			sqlStatement.parameters[11] = custObj.lastmodified_by;
+			sqlStatement.parameters[12] = custObj.lastmodified_date;
 			
+			sqlStatement.sqlConnection = conn;
+			sqlStatement.addEventListener(SQLEvent.RESULT, customerResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+			sqlStatement.execute();
+		}
+		
+		private function customerResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, customerResultHandler);
+			//Check the new customer id generated
+		}
+		
+		private function customerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
 		}
 		
 	}
