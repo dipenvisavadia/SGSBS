@@ -23,6 +23,8 @@ package components {
 
 	public class SQLManager extends EventDispatcher {
 		
+		private var _instance:SQLManager = null;
+		
 		private var logsON:Boolean = true;
 		
 		private var conn:SQLConnection;
@@ -37,13 +39,20 @@ package components {
 		private var pwdInput:String;
 		private var userRole:String;
 		
-		public function SQLManager():void {
+		public function SQLManager(SE:SingletonEnforcer):void {
 			urlChecker = new URLChecker();
 			urlChecker.addEventListener(Event.COMPLETE, urlChecked);
 			urlChecker.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 			urlChecker.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 			urlChecker.check('http://www.shreegurjarsutar.com');
 		}
+		
+		public static function getInstance():SQLManager {
+            if(_instance == null){
+                _instance = new SQLManager(new components.SingletonEnforcer());
+            }
+            return _instance;
+        }
 		
 		private function urlChecked(E:Event):void {
 			Alert.show('is Live: ' + E.target.isLive);
@@ -89,7 +98,7 @@ package components {
 				this.dispatchEvent(new ErrorEvent(ErrorEvent.ERROR, true, true, 'Database Not Found'));
 			}
 		}
-		
+		//LOGIN
 		public function checkPassword(uNameInput:String, pwdInput:String):void {
 			this.pwdInput = pwdInput;
 			sqlStatement = new flash.data.SQLStatement();
@@ -134,7 +143,7 @@ package components {
 		private function loginErrorHandler(SQLEE:SQLErrorEvent):void {
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, loginErrorHandler);
 		}
-		
+		//GET ALL CUSTOMERS
 		public function getAllCustomers(isMember:Boolean):void {
 			sqlStatement = new flash.data.SQLStatement();
 			sqlStatement.text = 'SELECT * FROM customer_ms WHERE comm_member = "' + ((isMember)?1:0) + '";';
@@ -142,20 +151,20 @@ package components {
 				trace(sqlStatement.text);
 			}
 			sqlStatement.sqlConnection = conn;
-			sqlStatement.addEventListener(SQLEvent.RESULT, customerResultHandler);
-			sqlStatement.addEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+			sqlStatement.addEventListener(SQLEvent.RESULT, getCustomerResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
 			sqlStatement.execute();
 		}
 		
-		private function customerResultHandler(SQLE:SQLEvent):void {
-			sqlStatement.removeEventListener(SQLEvent.RESULT, customerResultHandler);
+		private function getCustomerResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerResultHandler);
 			//Update customer VO here
 		}
 		
-		private function customerErrorHandler(SQLEE:SQLErrorEvent):void {
-			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+		private function getCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
 		}
-		
+		//ADD CUSTOMER
 		public function addCustomer(custObj:CustomerVO):void {
 			sqlStatement = new flash.data.SQLStatement();
 			sqlStatement.text = "INSERT INTO customer_ms (first_name, middle_name, last_name, comm_member, pan, contactnum1, contactnum2, address, city, email, desc, lastmodified_by, lastmodified_date)"
@@ -175,20 +184,57 @@ package components {
 			sqlStatement.parameters[12] = custObj.lastmodified_date;
 			
 			sqlStatement.sqlConnection = conn;
-			sqlStatement.addEventListener(SQLEvent.RESULT, customerResultHandler);
-			sqlStatement.addEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+			sqlStatement.addEventListener(SQLEvent.RESULT, addCustomerResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, addCustomerErrorHandler);
 			sqlStatement.execute();
 		}
 		
-		private function customerResultHandler(SQLE:SQLEvent):void {
-			sqlStatement.removeEventListener(SQLEvent.RESULT, customerResultHandler);
+		private function addCustomerResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, addCustomerResultHandler);
 			//Check the new customer id generated
 		}
 		
-		private function customerErrorHandler(SQLEE:SQLErrorEvent):void {
-			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
+		private function addCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, addCustomerErrorHandler);
+		}
+		//UPDATE CUSTOMER
+		public function updateCustomer(custObj:CustomerVO):void {
+			sqlStatement = new flash.data.SQLStatement();
+			sqlStatement.text = "UPDATE customer_ms SET (first_name, middle_name, last_name, comm_member, pan, contactnum1, contactnum2, address, city, email, desc, lastmodified_by, lastmodified_date)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE customer_id = " + custObj.customer_id;
+			sqlStatement.parameters[0] = custObj.first_name;
+			sqlStatement.parameters[1] = custObj.middle_name;
+			sqlStatement.parameters[2] = custObj.last_name;
+			sqlStatement.parameters[3] = custObj.comm_member;
+			sqlStatement.parameters[4] = custObj.pan;
+			sqlStatement.parameters[5] = custObj.contactnum1;
+			sqlStatement.parameters[6] = custObj.contactnum2;
+			sqlStatement.parameters[7] = custObj.address;
+			sqlStatement.parameters[8] = custObj.city;
+			sqlStatement.parameters[9] = custObj.email;
+			sqlStatement.parameters[10] = custObj.desc;
+			sqlStatement.parameters[11] = custObj.lastmodified_by;
+			sqlStatement.parameters[12] = custObj.lastmodified_date;
+			
+			sqlStatement.sqlConnection = conn;
+			sqlStatement.addEventListener(SQLEvent.RESULT, updateCustomerResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, updateCustomerErrorHandler);
+			sqlStatement.execute();
+		}
+		
+		private function updateCustomerResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, updateCustomerResultHandler);
+			//Check the new customer id generated
+		}
+		
+		private function updateCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, updateCustomerErrorHandler);
 		}
 		
 	}
+	
+}
 
+//I’m outside the package so I can only be access internally
+class SingletonEnforcer {
+	//nothing else required here
 }
