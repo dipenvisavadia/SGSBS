@@ -167,8 +167,7 @@ package components {
 		//ADD CUSTOMER
 		public function addCustomer(custObj:CustomerVO):void {
 			sqlStatement = new flash.data.SQLStatement();
-			sqlStatement.text = "INSERT INTO customer_ms (first_name, middle_name, last_name, comm_member, pan, contactnum1, contactnum2, address, city, email, desc, lastmodified_by, lastmodified_date)"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			sqlStatement.text = "INSERT INTO customer_ms (first_name, middle_name, last_name, comm_member, pan, contactnum1, contactnum2, address, city, email, desc, lastmodified_by, lastmodified_date)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			sqlStatement.parameters[0] = custObj.first_name;
 			sqlStatement.parameters[1] = custObj.middle_name;
 			sqlStatement.parameters[2] = custObj.last_name;
