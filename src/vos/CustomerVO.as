@@ -1,4 +1,5 @@
-package {
+package vos {
+	import common.CommonFunc;
 	
 	public class CustomerVO {
 		
@@ -17,11 +18,11 @@ package {
 		private var _lastmodified_by:String;
 		private var _lastmodified_date:String;
 		
-		public CustomerVO()
+		public function CustomerVO()
 		{
 			_comm_member = 0;
 			_lastmodified_by = "Mukesh";//use logged in username 
-			_lastmodified_date = new Date();//format date into dd/mm/yyyy HH:MM:SS format
+			_lastmodified_date = CommonFunc.castToDateString(new Date());//format date into dd/mm/yyyy HH:MM:SS format
 		}
 		
 		public function get customer_id():uint {

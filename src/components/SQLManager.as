@@ -180,15 +180,6 @@ package components {
 			sqlStatement.execute();
 		}
 		
-		private function customerResultHandler(SQLE:SQLEvent):void {
-			sqlStatement.removeEventListener(SQLEvent.RESULT, customerResultHandler);
-			//Check the new customer id generated
-		}
-		
-		private function customerErrorHandler(SQLEE:SQLErrorEvent):void {
-			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, customerErrorHandler);
-		}
-		
 	}
 
 }

@@ -1,4 +1,4 @@
-package {
+package vos {
 	
 	public class PackageVO {
 		
