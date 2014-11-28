@@ -17,6 +17,13 @@ package {
 		private var _lastmodified_by:String;
 		private var _lastmodified_date:String;
 		
+		public CustomerVO()
+		{
+			_comm_member = 0;
+			_lastmodified_by = "Mukesh";//use logged in username 
+			_lastmodified_date = new Date();//format date into dd/mm/yyyy HH:MM:SS format
+		}
+		
 		public function get customer_id():uint {
 			return _customer_id;
 		}

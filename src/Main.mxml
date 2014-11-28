@@ -108,7 +108,7 @@
 		<s:VerticalLayout horizontalAlign="center" gap="0"/>
 	</s:layout>
 	
-	
+	<fx:Style source="assets/defaultStyle.css"/>
 	
 	<SGSComps:AppHeader></SGSComps:AppHeader>
 	

@@ -5,7 +5,12 @@
 		 backgroundAlpha="1" backgroundColor="#999999">
 	<fx:Script>
 		<![CDATA[
+			import common.CommonFunc;
+			
+			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
+			import mx.utils.StringUtil;
+			import mx.validators.Validator;
 			[Bindable]var comments:String ;
 			[Bindable]var email:String ;
 			[Bindable]var city:String ;
@@ -16,37 +21,73 @@
 			[Bindable]var firstName:String ;
 			[Bindable]var middleName:String ;
 			[Bindable]var lastName:String ;
+			[Bindable]var isCustomerMember:Boolean = false ;
 			
 			private function saveCustomerInfo():void
 			{
-				PopUpManager.removePopUp(this);
+				//validate customer details
+				var validRes:Array = Validator.validateAll(validators);
+				if(validRes.length>0)
+				{
+					Alert.show("Please fill up required details.");
+				}
+				//save customer details into db
+				var customerVOObj:CustomerVO = new CustomerVO();
+				//customerVOObj._customer_id
+				customerVOObj.first_name = StringUtil.trim(firstName) ;
+				customerVOObj.middle_name = StringUtil.trim(middleName) ;
+				customerVOObj.last_name = StringUtil.trim(lastName) ;
+				customerVOObj.comm_member = (isCustomerMember)?1:0;
+				customerVOObj.pan = StringUtil.trim(PAN) ;
+				customerVOObj.contactnum1 = StringUtil.trim(contactnum1) ;
+				customerVOObj.contactnum2 = StringUtil.trim(contactnum2) ;
+				customerVOObj.address = StringUtil.trim(address) ;
+				customerVOObj.city = StringUtil.trim(city) ;
+ 				customerVOObj.email = StringUtil.trim(email) ;
+				customerVOObj.desc = StringUtil.trim(comments) ;
+				customerVOObj.lastmodified_by = "Mukesh"//read logged in user name
+				customerVOObj.lastmodified_date = CommonFunc.castToDBDateString(new Date());
+				
+				
+				//prompt to user
+				//update customer master list
+				//PopUpManager.removePopUp(this);
 			}
 			
 		]]>
 	</fx:Script>
+	<fx:Declarations>
+		<fx:Array id="validators">
+			<mx:StringValidator source="{firstNameInput}" required="true" trigger="{saveBtn}" triggerEvent="Click"/>
+			<mx:PhoneNumberValidator source="{contactNum1Input}" required="true" trigger="{saveBtn}" triggerEvent="Click"/>
+			<mx:EmailValidator source="{emailInput}" required="false" trigger="{saveBtn}" triggerEvent="Click"/>
+			
+		</fx:Array>
+	</fx:Declarations>
 	<s:Form width="100%" height="100%">
 		<s:FormHeading label="Add Customer" textAlign="center" width="100%"/>
 		
 		<s:HGroup width="100%" gap="10">
 			<s:VGroup width="50%">
 				<s:HGroup width="100%" gap="8">
-					<s:VGroup>
-						<s:Label text="First Name:"/>
-						<s:TextInput text="@{firstName}"/>	
-					</s:VGroup>
-					<s:VGroup>
-						<s:Label text="Middle Name:"/>
-						<s:TextInput text="@{middleName}"/>	
-					</s:VGroup>
-					<s:VGroup>
-						<s:Label text="Last Name:"/>
-						<s:TextInput text="@{lastName}"/>	
-					</s:VGroup>
+					<s:Group>
+						<s:Label text="First Name:" x="0" y="0" width="70"/>
+						<s:Label text="*" styleName="mandatoryLabelStyle" x="70" y="0"/>
+						<s:TextInput text="@{firstName}" x="0" y="22" id="firstNameInput"/>	
+					</s:Group>
+					<s:Group>
+						<s:Label text="Middle Name:" x="0" y="0"/>
+						<s:TextInput text="@{middleName}" x="0" y="22"/>
+					</s:Group>
+					<s:Group>
+						<s:Label text="Last Name:" x="0" y="0"/>
+						<s:TextInput text="@{lastName}" x="0" y="22"/>	
+					</s:Group>
 				</s:HGroup>
 				<!--member checkbox-->
 				<s:HGroup width="100%" gap="8">
 					<s:Label text="Customer is Member:"/>
-					<s:CheckBox/>
+					<s:CheckBox selected="@{isCustomerMember}"/>
 				</s:HGroup>
 				<!--PAN input-->
 				<s:HGroup width="100%" gap="8">
@@ -55,12 +96,13 @@
 				</s:HGroup>
 				<!--CONTACT input-->
 				<s:HGroup width="100%" gap="8">
+					<s:Group>
+						<s:Label text="Contact 1:" x="0" y="0"/>
+						<s:Label text="*" styleName="mandatoryLabelStyle" x="70" y="0"/>
+						<s:TextInput text="@{contactnum1}" id="contactNum1Input" x="0" y="22"/>	
+					</s:Group>
 					<s:VGroup>
-						<s:Label text="Contact 1:"/>
-						<s:TextInput text="@{contactnum1}"/>	
-					</s:VGroup>
-					<s:VGroup>
-						<s:Label text="Contact 2:"/>
+						<s:Label text="Contact 2:" x="0" y="0"/>
 						<s:TextInput text="@{contactnum2}"/>	
 					</s:VGroup>
 				</s:HGroup>
@@ -71,28 +113,28 @@
 				
 				<s:Group width="100%">
 					<s:Label text="Address:" x="0" y="0"/>
-					<s:TextArea text="@{address}" height="80" x="0" y="25"/>	
+					<s:TextArea text="@{address}" height="80" width="80%" x="0" y="22"/>	
 				</s:Group>
 				
 				<s:Group width="100%">
 					<s:Label text="City:" x="0" y="0"/>
-					<s:TextInput text="@{city}" x="0" y="25"/>	
+					<s:TextInput text="@{city}" x="0" y="22"/>	
 				</s:Group>
 
-				<s:VGroup width="100%">
-					<s:Label text="Email:"/>
-					<s:TextInput text="@{email}"/>	
-				</s:VGroup>
+				<s:Group width="100%">
+					<s:Label text="Email:" x="0" y="0"/>
+					<s:TextInput text="@{email}" x="0" y="22" id="emailInput" />	
+				</s:Group>
 				
-				<s:VGroup width="100%">
-					<s:Label text="Comments:"/>
-					<s:TextInput text="@{comments}"/>	
-				</s:VGroup>
+				<s:Group width="100%">
+					<s:Label text="Comments:" x="0" y="0"/>
+					<s:TextArea text="@{comments}" x="0" y="22" width="80%" height="80"/>	
+				</s:Group>
 			</s:VGroup>
 		</s:HGroup>
 		
 		<s:HGroup>
-			<s:Button label="Save" click="{saveCustomerInfo();}"/>
+			<s:Button label="Save" click="{saveCustomerInfo();}" id="saveBtn"/>
 			<s:Button label="Cancel" click="{PopUpManager.removePopUp(this)}"/>
 		</s:HGroup>
 		

@@ -40,8 +40,8 @@
 			private function showAddNewCustomerPopup():void
 			{
 				addCustomerPopup=PopUpManager.createPopUp(this as DisplayObject, AddEditCustomerComp, true, null) as AddEditCustomerComp;
-				addCustomerPopup.x= 100 ;//addCustomerPopup.width / 2 - FlexGlobals.topLevelApplication.screen.width / 2;
-				addCustomerPopup.y= 40;//addCustomerPopup.height / 2 - FlexGlobals.topLevelApplication.screen.height / 2;	
+				addCustomerPopup.x= FlexGlobals.topLevelApplication.screen.width / 2 - addCustomerPopup.width / 2 ;
+				addCustomerPopup.y=  150;//FlexGlobals.topLevelApplication.screen.height / 2 - addCustomerPopup.height / 2  ;	
 			}
 			
 			private function startBookingForSelectedCustomer(custObj:Object):void
