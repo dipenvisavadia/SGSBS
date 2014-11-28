@@ -7,7 +7,12 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import components.Customer.AddEditCustomerComp;
+			
 			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.managers.PopUpManager;
+			
 			import renderer.CustomerSelectorItemRenderer;
 			
 			
@@ -29,6 +34,14 @@
 			{
 				/* var customer:Object = autoComplete.selectedItem;
 				trace(""+customer.first_name); */
+			}
+			
+			private var addCustomerPopup:AddEditCustomerComp;
+			private function showAddNewCustomerPopup():void
+			{
+				addCustomerPopup=PopUpManager.createPopUp(this as DisplayObject, AddEditCustomerComp, true, null) as AddEditCustomerComp;
+				addCustomerPopup.x= 100 ;//addCustomerPopup.width / 2 - FlexGlobals.topLevelApplication.screen.width / 2;
+				addCustomerPopup.y= 40;//addCustomerPopup.height / 2 - FlexGlobals.topLevelApplication.screen.height / 2;	
 			}
 			
 			private function startBookingForSelectedCustomer(custObj:Object):void
@@ -80,6 +93,8 @@
 					</components:AutoComplete>-->
 					<s:Button label="Book" click="{startBookingForSelectedCustomer(autoComplete.text)}" />
 				</s:HGroup>
+				
+				<s:Button label="Add New Customer" click="{showAddNewCustomerPopup()}" y="120" x="8"/>
 			</s:BorderContainer>
 
 		</s:NavigatorContent>

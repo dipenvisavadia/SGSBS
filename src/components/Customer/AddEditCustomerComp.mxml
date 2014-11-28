@@ -1,34 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="400" borderVisible="true" cornerRadius="8"
+		 backgroundAlpha="1" backgroundColor="#999999">
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			[Bindable]var comments:String ;
+			[Bindable]var email:String ;
+			[Bindable]var city:String ;
+			[Bindable]var address:String ;
+			[Bindable]var contactnum2:String ;
+			[Bindable]var contactnum1:String ;
+			[Bindable]var PAN:String ;
+			[Bindable]var firstName:String ;
+			[Bindable]var middleName:String ;
+			[Bindable]var lastName:String ;
+			
+			private function saveCustomerInfo():void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+		]]>
+	</fx:Script>
 	<s:Form width="100%" height="100%">
-		<s:FormHeading label="Add Customer"/>
-		<!--customer_id	first_name	middle_name	last_name	comm_member	pan	contactnum1	contactnum2	address	city	email	desc	lastmodified_by	lastmodified_date
--->
-		<s:FormItem label="First Name:">
-			<s:TextInput text="@{firstName}"/>
-			<s:helpContent>
-				<s:Label text="Enter Customer's firstname" />
-			</s:helpContent>
-		</s:FormItem>
-		<s:FormItem label="Middle Name:">
-			<s:TextInput text="@{middleName}"/>
-			<s:helpContent>
-				<s:Label text="Enter Customer's middlename" />
-			</s:helpContent>
-		</s:FormItem>
-		<s:FormItem label="Last Name:">
-			<s:TextInput text="@{lastName}"/>
-			<s:helpContent>
-				<s:Label text="Enter Customer's lastname" />
-			</s:helpContent>
-		</s:FormItem>
-		<s:FormItem label="Customer is Member:">
-			<s:CheckBox/>
-			<s:helpContent>
-				<s:Label text="Select if customer is member." />
-			</s:helpContent>
-		</s:FormItem>
+		<s:FormHeading label="Add Customer" textAlign="center" width="100%"/>
+		
+		<s:HGroup width="100%" gap="10">
+			<s:VGroup width="50%">
+				<s:HGroup width="100%" gap="8">
+					<s:VGroup>
+						<s:Label text="First Name:"/>
+						<s:TextInput text="@{firstName}"/>	
+					</s:VGroup>
+					<s:VGroup>
+						<s:Label text="Middle Name:"/>
+						<s:TextInput text="@{middleName}"/>	
+					</s:VGroup>
+					<s:VGroup>
+						<s:Label text="Last Name:"/>
+						<s:TextInput text="@{lastName}"/>	
+					</s:VGroup>
+				</s:HGroup>
+				<!--member checkbox-->
+				<s:HGroup width="100%" gap="8">
+					<s:Label text="Customer is Member:"/>
+					<s:CheckBox/>
+				</s:HGroup>
+				<!--PAN input-->
+				<s:HGroup width="100%" gap="8">
+					<s:Label text="PAN"/>
+					<s:TextInput text="@{PAN}"/>
+				</s:HGroup>
+				<!--CONTACT input-->
+				<s:HGroup width="100%" gap="8">
+					<s:VGroup>
+						<s:Label text="Contact 1:"/>
+						<s:TextInput text="@{contactnum1}"/>	
+					</s:VGroup>
+					<s:VGroup>
+						<s:Label text="Contact 2:"/>
+						<s:TextInput text="@{contactnum2}"/>	
+					</s:VGroup>
+				</s:HGroup>
+			</s:VGroup>
+			
+			<!--Right section -->
+			<s:VGroup width="50%">
+				
+				<s:Group width="100%">
+					<s:Label text="Address:" x="0" y="0"/>
+					<s:TextArea text="@{address}" height="80" x="0" y="25"/>	
+				</s:Group>
+				
+				<s:Group width="100%">
+					<s:Label text="City:" x="0" y="0"/>
+					<s:TextInput text="@{city}" x="0" y="25"/>	
+				</s:Group>
+
+				<s:VGroup width="100%">
+					<s:Label text="Email:"/>
+					<s:TextInput text="@{email}"/>	
+				</s:VGroup>
+				
+				<s:VGroup width="100%">
+					<s:Label text="Comments:"/>
+					<s:TextInput text="@{comments}"/>	
+				</s:VGroup>
+			</s:VGroup>
+		</s:HGroup>
+		
+		<s:HGroup>
+			<s:Button label="Save" click="{saveCustomerInfo();}"/>
+			<s:Button label="Cancel" click="{PopUpManager.removePopUp(this)}"/>
+		</s:HGroup>
+		
 	</s:Form>
-</s:Group>
+</s:BorderContainer>
