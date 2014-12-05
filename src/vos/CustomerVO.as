@@ -9,8 +9,8 @@ package vos {
 		private var _last_name:String;
 		private var _comm_member:uint;
 		private var _pan:String;
-		private var _contactnum1:uint;
-		private var _contactnum2:uint;
+		private var _contactnum1:Number;
+		private var _contactnum2:Number;
 		private var _address:String;
 		private var _city:String;
 		private var _email:String;
@@ -73,19 +73,19 @@ package vos {
 			_pan = value;
 		}
 		
-		public function get contactnum1():uint {
+		public function get contactnum1():Number {
 			return _contactnum1;
 		}
 		
-		public function set contactnum1(value:uint):void {
+		public function set contactnum1(value:Number):void {
 			_contactnum1 = value;
 		}
 		
-		public function get contactnum2():uint {
+		public function get contactnum2():Number {
 			return _contactnum2;
 		}
 		
-		public function set contactnum2(value:uint):void {
+		public function set contactnum2(value:Number):void {
 			_contactnum2 = value;
 		}
 		

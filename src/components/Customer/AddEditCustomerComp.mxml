@@ -7,7 +7,10 @@
 		<![CDATA[
 			import common.CommonFunc;
 			
+			import components.SQLManager;
+			
 			import mx.controls.Alert;
+			import mx.core.UIComponent;
 			import mx.managers.PopUpManager;
 			import mx.utils.StringUtil;
 			import mx.validators.Validator;
@@ -40,9 +43,9 @@
 				customerVOObj.middle_name = StringUtil.trim(middleName) ;
 				customerVOObj.last_name = StringUtil.trim(lastName) ;
 				customerVOObj.comm_member = (isCustomerMember)?1:0;
-				customerVOObj.pan = StringUtil.trim(PAN) ;
-				customerVOObj.contactnum1 = parseInt(StringUtil.trim(contactnum1)) ;
-				customerVOObj.contactnum2 = parseInt(StringUtil.trim(contactnum2)) ;
+				customerVOObj.pan = StringUtil.trim(PAN).toUpperCase() ;
+				customerVOObj.contactnum1 = parseFloat(StringUtil.trim(contactnum1)) ;
+				customerVOObj.contactnum2 = parseFloat(StringUtil.trim(contactnum2)) ;
 				customerVOObj.address = StringUtil.trim(address) ;
 				customerVOObj.city = StringUtil.trim(city) ;
  				customerVOObj.email = StringUtil.trim(email) ;
@@ -50,9 +53,36 @@
 				customerVOObj.lastmodified_by = "Mukesh"//read logged in user name
 				customerVOObj.lastmodified_date = CommonFunc.castToDBDateString(new Date());
 				
-				//prompt to user
+				this.addEventListener(SQLEvent.RESULT,customerAddHandler);
+				SQLManager.getInstance().addCustomer(customerVOObj,this as UIComponent);
+				
 				//update customer master list
-				//PopUpManager.removePopUp(this);
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function customerAddHandler(event:SQLEvent):void
+			{
+				reset();
+				this.removeEventListener(SQLEvent.RESULT,customerAddHandler);
+				SQLManager.getInstance().targetUIComp = null;
+			}
+			
+			private function reset():void
+			{
+				comments = "";
+				email= "";
+				emailInput.errorString = "";
+				city= "";
+				address= "";
+				contactnum2= "";
+				contactnum1= "";
+				contactNum1Input.errorString = "";
+				PAN= "";
+				firstName= "";
+				firstNameInput.errorString = "";
+				middleName= "";
+				lastName= "";
+				isCustomerMember= false;
 			}
 			
 		]]>
@@ -74,15 +104,15 @@
 					<s:Group>
 						<s:Label text="First Name:" x="0" y="0" width="70"/>
 						<s:Label text="*" styleName="mandatoryLabelStyle" x="70" y="0"/>
-						<s:TextInput text="@{firstName}" x="0" y="18" id="firstNameInput"/>	
+						<s:TextInput text="@{firstName}" x="0" y="18" id="firstNameInput" maxChars="50"/>	
 					</s:Group>
 					<s:Group>
 						<s:Label text="Middle Name:" x="0" y="0"/>
-						<s:TextInput text="@{middleName}" x="0" y="18"/>
+						<s:TextInput text="@{middleName}" x="0" y="18" maxChars="50"/>
 					</s:Group>
 					<s:Group>
 						<s:Label text="Last Name:" x="0" y="0"/>
-						<s:TextInput text="@{lastName}" x="0" y="18"/>	
+						<s:TextInput text="@{lastName}" x="0" y="18" maxChars="50"/>	
 					</s:Group>
 				</s:HGroup>
 				<!--member checkbox-->
@@ -93,18 +123,18 @@
 				<!--PAN input-->
 				<s:HGroup width="100%" gap="8">
 					<s:Label text="PAN"/>
-					<s:TextInput text="@{PAN}"/>
+					<s:TextInput text="@{PAN}" maxChars="10"/>
 				</s:HGroup>
 				<!--CONTACT input-->
 				<s:HGroup width="100%" gap="8">
 					<s:Group>
 						<s:Label text="Contact 1:" x="0" y="0"/>
 						<s:Label text="*" styleName="mandatoryLabelStyle" x="70" y="0"/>
-						<s:TextInput text="@{contactnum1}" id="contactNum1Input" x="0" y="18"/>	
+						<s:TextInput text="@{contactnum1}" id="contactNum1Input" x="0" y="18" maxChars="10"/>	
 					</s:Group>
 					<s:Group>
 						<s:Label text="Contact 2:" x="0" y="0"/>
-						<s:TextInput text="@{contactnum2}" x="0" y="18"/>	
+						<s:TextInput text="@{contactnum2}" x="0" y="18" maxChars="10"/>	
 					</s:Group>
 				</s:HGroup>
 			</s:VGroup>
@@ -114,22 +144,22 @@
 				
 				<s:Group width="100%">
 					<s:Label text="Address:" x="0" y="0"/>
-					<s:TextArea text="@{address}" height="80" width="80%" x="0" y="18"/>	
+					<s:TextArea text="@{address}" height="80" width="80%" x="0" y="18" maxChars="500"/>	
 				</s:Group>
 				
 				<s:Group width="100%">
 					<s:Label text="City:" x="0" y="0"/>
-					<s:TextInput text="@{city}" x="0" y="18"/>	
+					<s:TextInput text="@{city}" x="0" y="18" maxChars="100"/>	
 				</s:Group>
 
 				<s:Group width="100%">
 					<s:Label text="Email:" x="0" y="0"/>
-					<s:TextInput text="@{email}" x="0" y="18" id="emailInput" />	
+					<s:TextInput text="@{email}" x="0" y="18" id="emailInput" maxChars="100"/>	
 				</s:Group>
 				
 				<s:Group width="100%">
 					<s:Label text="Comments:" x="0" y="0"/>
-					<s:TextArea text="@{comments}" x="0" y="18" width="80%" height="80"/>	
+					<s:TextArea text="@{comments}" x="0" y="18" width="80%" height="80" maxChars="500"/>	
 				</s:Group>
 			</s:VGroup>
 		</s:HGroup>

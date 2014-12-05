@@ -3,21 +3,24 @@ package components {
 	 * ...
 	 * @author Dipen Visavadia
 	 */
+	import components.URLChecker;
+	
 	import flash.data.SQLConnection;
 	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
+	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import flash.events.ErrorEvent;
-    import flash.events.HTTPStatusEvent;
-    import flash.events.IOErrorEvent;
-    import flash.events.SecurityErrorEvent;
+	import flash.events.HTTPStatusEvent;
+	import flash.events.IOErrorEvent;
 	import flash.events.SQLErrorEvent;
 	import flash.events.SQLEvent;
+	import flash.events.SecurityErrorEvent;
 	import flash.filesystem.File;
+	
 	import mx.controls.Alert;
-
-	import components.URLChecker;
+	import mx.core.UIComponent;
+	
 	import vos.CustomerVO;
 	import vos.UserVO;
 
@@ -64,6 +67,7 @@ package components {
 			conn.addEventListener(SQLEvent.OPEN, openHandler);
 			conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);
 			folder = File.applicationDirectory;
+			Alert.show(""+folder.nativePath);
 			dbFile = folder.resolvePath("SGSBS.db");
 			conn.openAsync(dbFile);
 		}
@@ -165,7 +169,7 @@ package components {
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
 		}
 		//ADD CUSTOMER
-		public function addCustomer(custObj:CustomerVO):void {
+		public function addCustomer(custObj:CustomerVO,eventNotifier:UIComponent):void {
 			sqlStatement = new flash.data.SQLStatement();
 			sqlStatement.text = "INSERT INTO customer_ms (first_name, middle_name, last_name, comm_member, pan, contactnum1, contactnum2, address, city, email, desc, lastmodified_by, lastmodified_date)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			sqlStatement.parameters[0] = custObj.first_name;
@@ -183,17 +187,24 @@ package components {
 			sqlStatement.parameters[12] = custObj.lastmodified_date;
 			
 			sqlStatement.sqlConnection = conn;
+			targetUIComp = eventNotifier;
 			sqlStatement.addEventListener(SQLEvent.RESULT, addCustomerResultHandler);
 			sqlStatement.addEventListener(SQLErrorEvent.ERROR, addCustomerErrorHandler);
 			sqlStatement.execute();
 		}
-		
+		public var targetUIComp:UIComponent ;
 		private function addCustomerResultHandler(SQLE:SQLEvent):void {
+			Alert.show("Customer added successfully");
+			if(targetUIComp!=null)
+			{
+				targetUIComp.dispatchEvent(SQLE);
+			}
 			sqlStatement.removeEventListener(SQLEvent.RESULT, addCustomerResultHandler);
 			//Check the new customer id generated
 		}
 		
 		private function addCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			Alert.show("addCustomerErrorHandler["+SQLEE.text+"]");
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, addCustomerErrorHandler);
 		}
 		//UPDATE CUSTOMER
