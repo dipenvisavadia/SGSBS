@@ -23,7 +23,7 @@ package components {
 
 	public class SQLManager extends EventDispatcher {
 		
-		private var _instance:SQLManager = null;
+		private static var _instance:SQLManager;
 		
 		private var logsON:Boolean = true;
 		
@@ -49,7 +49,7 @@ package components {
 		
 		public static function getInstance():SQLManager {
             if(_instance == null){
-                _instance = new SQLManager(new components.SingletonEnforcer());
+                _instance = new SQLManager(new SingletonEnforcer());
             }
             return _instance;
         }

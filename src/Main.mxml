@@ -25,7 +25,7 @@
 			}
 			
 			private function init():void {
-				sqlMngr = new SQLManager();
+				sqlMngr = SQLManager.getInstance();
 				sqlMngr.addEventListener(Event.COMPLETE, showLoginPanel);
 				sqlMngr.addEventListener('LOGIN_SUCCESS', function():void {mainViewStack.selectedIndex = 2;});
 			}

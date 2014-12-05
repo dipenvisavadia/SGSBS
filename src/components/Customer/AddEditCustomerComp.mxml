@@ -13,17 +13,17 @@
 			import mx.validators.Validator;
 			
 			import vos.CustomerVO;
-			[Bindable]var comments:String ;
-			[Bindable]var email:String ;
-			[Bindable]var city:String ;
-			[Bindable]var address:String ;
-			[Bindable]var contactnum2:String ;
-			[Bindable]var contactnum1:String ;
-			[Bindable]var PAN:String ;
-			[Bindable]var firstName:String ;
-			[Bindable]var middleName:String ;
-			[Bindable]var lastName:String ;
-			[Bindable]var isCustomerMember:Boolean = false ;
+			[Bindable] private var comments:String ;
+			[Bindable] private var email:String ;
+			[Bindable] private var city:String ;
+			[Bindable] private var address:String ;
+			[Bindable] private var contactnum2:String ;
+			[Bindable] private var contactnum1:String ;
+			[Bindable] private var PAN:String ;
+			[Bindable] private var firstName:String ;
+			[Bindable] private var middleName:String ;
+			[Bindable] private var lastName:String ;
+			[Bindable] private var isCustomerMember:Boolean = false ;
 			
 			private function saveCustomerInfo():void
 			{
