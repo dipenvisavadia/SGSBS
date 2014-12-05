@@ -69,11 +69,11 @@ package components {
 		}
 		
 		private function ioErrorHandler(IOEE:IOErrorEvent):void {
-			Alert.show('IO Error: ' + IOEE);
+			Alert.show('IO Error: ' + IOEE.text);
 		}
 		
 		private function securityErrorHandler(SEE:SecurityErrorEvent):void {
-			Alert.show('Security Error: ' + SEE);
+			Alert.show('Security Error: ' + SEE.text);
 		}
 		
 		private function openHandler(SQLE:SQLEvent):void {
@@ -114,6 +114,7 @@ package components {
 		
 		private function loginResultHandler(SQLE:SQLEvent):void {
 			sqlStatement.removeEventListener(SQLEvent.RESULT, loginResultHandler);
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, loginErrorHandler);
 			var loginSuccess:Boolean = false;
 			var result:SQLResult = sqlStatement.getResult();
 			if (result.data) {
@@ -141,7 +142,10 @@ package components {
 		}
 		
 		private function loginErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, loginResultHandler);
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, loginErrorHandler);
+			Alert.show('Error Message:', SQLEE.error.message);
+			Alert.show('Details:', SQLEE.error.details);
 		}
 		//GET ALL CUSTOMERS
 		public function getAllCustomers(isMember:Boolean):void {
@@ -158,11 +162,15 @@ package components {
 		
 		private function getCustomerResultHandler(SQLE:SQLEvent):void {
 			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerResultHandler);
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
 			//Update customer VO here
 		}
 		
 		private function getCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerResultHandler);
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
+			Alert.show('Error Message:', SQLEE.error.message);
+			Alert.show('Details:', SQLEE.error.details);
 		}
 		//ADD CUSTOMER
 		public function addCustomer(custObj:CustomerVO):void {
@@ -190,11 +198,15 @@ package components {
 		
 		private function addCustomerResultHandler(SQLE:SQLEvent):void {
 			sqlStatement.removeEventListener(SQLEvent.RESULT, addCustomerResultHandler);
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, addCustomerErrorHandler);
 			//Check the new customer id generated
 		}
 		
 		private function addCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, addCustomerResultHandler);
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, addCustomerErrorHandler);
+			Alert.show('Error Message:', SQLEE.error.message);
+			Alert.show('Details:', SQLEE.error.details);
 		}
 		//UPDATE CUSTOMER
 		public function updateCustomer(custObj:CustomerVO):void {
@@ -222,11 +234,15 @@ package components {
 		
 		private function updateCustomerResultHandler(SQLE:SQLEvent):void {
 			sqlStatement.removeEventListener(SQLEvent.RESULT, updateCustomerResultHandler);
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, updateCustomerErrorHandler);
 			//Check the new customer id generated
 		}
 		
 		private function updateCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, updateCustomerResultHandler);
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, updateCustomerErrorHandler);
+			Alert.show('Error Message:', SQLEE.error.message);
+			Alert.show('Details:', SQLEE.error.details);
 		}
 		
 	}
