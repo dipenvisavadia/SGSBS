@@ -16,6 +16,7 @@
 			import mx.validators.Validator;
 			
 			import vos.CustomerVO;
+			
 			[Bindable] private var comments:String ;
 			[Bindable] private var email:String ;
 			[Bindable] private var city:String ;
