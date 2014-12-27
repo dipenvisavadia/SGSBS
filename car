@@ -1,0 +1,29 @@
+[1mdiff --git a/src/components/SQLManager.as b/src/components/SQLManager.as[m
+[1mindex 3a0c279..369f555 100644[m
+[1m--- a/src/components/SQLManager.as[m
+[1m+++ b/src/components/SQLManager.as[m
+[36m@@ -67,7 +67,6 @@[m [mpackage components {[m
+ 			conn.addEventListener(SQLEvent.OPEN, openHandler);[m
+ 			conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);[m
+ 			folder = File.applicationDirectory;[m
+[31m-			Alert.show(""+folder.nativePath);[m
+ 			dbFile = folder.resolvePath("SGSBS.db");[m
+ 			conn.openAsync(dbFile);[m
+ 		}[m
+[36m@@ -202,7 +201,7 @@[m [mpackage components {[m
+ 		}[m
+ 		public var targetUIComp:UIComponent ;[m
+ 		private function addCustomerResultHandler(SQLE:SQLEvent):void {[m
+[31m-			Alert.show("Customer added successfully");[m
+[32m+[m			[32mAlert.show("Customer added successfully", 'Success');[m
+ 			if(targetUIComp!=null)[m
+ 			{[m
+ 				targetUIComp.dispatchEvent(SQLE);[m
+[36m@@ -243,6 +242,7 @@[m [mpackage components {[m
+ 		}[m
+ 		[m
+ 		private function updateCustomerResultHandler(SQLE:SQLEvent):void {[m
+[32m+[m			[32mAlert.show('Customer details updated', 'Success');[m
+ 			sqlStatement.removeEventListener(SQLEvent.RESULT, updateCustomerResultHandler);[m
+ 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, updateCustomerErrorHandler);[m
+ 			//Check the new customer id generated[m

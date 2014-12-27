@@ -67,7 +67,6 @@ package components {
 			conn.addEventListener(SQLEvent.OPEN, openHandler);
 			conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);
 			folder = File.applicationDirectory;
-			Alert.show(""+folder.nativePath);
 			dbFile = folder.resolvePath("SGSBS.db");
 			conn.openAsync(dbFile);
 		}
@@ -202,7 +201,7 @@ package components {
 		}
 		public var targetUIComp:UIComponent ;
 		private function addCustomerResultHandler(SQLE:SQLEvent):void {
-			Alert.show("Customer added successfully");
+			Alert.show("Customer added successfully", 'Success');
 			if(targetUIComp!=null)
 			{
 				targetUIComp.dispatchEvent(SQLE);
@@ -243,6 +242,7 @@ package components {
 		}
 		
 		private function updateCustomerResultHandler(SQLE:SQLEvent):void {
+			Alert.show('Customer details updated', 'Success');
 			sqlStatement.removeEventListener(SQLEvent.RESULT, updateCustomerResultHandler);
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, updateCustomerErrorHandler);
 			//Check the new customer id generated
