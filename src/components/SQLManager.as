@@ -5,6 +5,8 @@ package components {
 	 */
 	import components.URLChecker;
 	
+	import events.CustomersListEvent;
+	
 	import flash.data.SQLConnection;
 	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
@@ -18,8 +20,10 @@ package components {
 	import flash.events.SecurityErrorEvent;
 	import flash.filesystem.File;
 	
+	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.core.UIComponent;
+	import mx.utils.ObjectUtil;
 	
 	import vos.CustomerVO;
 	import vos.UserVO;
@@ -41,6 +45,7 @@ package components {
 		//LOGIN
 		private var pwdInput:String;
 		private var userRole:String;
+		public var customersList:ArrayCollection = new ArrayCollection();
 		
 		public function SQLManager(SE:SingletonEnforcer):void {
 			urlChecker = new URLChecker();
@@ -54,6 +59,7 @@ package components {
             if(_instance == null){
                 _instance = new SQLManager(new SingletonEnforcer());
             }
+			
             return _instance;
         }
 		
@@ -63,13 +69,21 @@ package components {
 			
 			isLive = E.target.isLive;
 			
-			conn = new flash.data.SQLConnection();
-			conn.addEventListener(SQLEvent.OPEN, openHandler);
-			conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);
-			folder = File.applicationDirectory;
-			Alert.show(""+folder.nativePath);
-			dbFile = folder.resolvePath("SGSBS.db");
-			conn.openAsync(dbFile);
+			getConnection();
+		}
+		
+		public function getConnection():void
+		{
+			if(conn==null)
+			{
+				conn = new flash.data.SQLConnection();
+				conn.addEventListener(SQLEvent.OPEN, openHandler);
+				conn.addEventListener(SQLErrorEvent.ERROR, errorHandler);
+				folder = File.applicationDirectory;
+				Alert.show(""+folder.nativePath);
+				dbFile = folder.resolvePath("SGSBS.db");
+				conn.openAsync(dbFile);
+			}
 		}
 		
 		private function ioErrorHandler(IOEE:IOErrorEvent):void {
@@ -151,28 +165,72 @@ package components {
 			Alert.show('Error Message:', SQLEE.error.message);
 			Alert.show('Details:', SQLEE.error.details);
 		}
+	
 		//GET ALL CUSTOMERS
-		public function getAllCustomers(isMember:Boolean):void {
-			sqlStatement = new flash.data.SQLStatement();
-			sqlStatement.text = 'SELECT * FROM customer_ms WHERE comm_member = "' + ((isMember)?1:0) + '";';
-			if (logsON) {
-				trace(sqlStatement.text);
+		public function getAllCustomers(loadAll:Boolean = true, isMember:Boolean=false):void {
+			if(conn)
+			{
+				sqlStatement = new flash.data.SQLStatement();
+				if(loadAll)
+				{
+					sqlStatement.text = 'SELECT * FROM customer_ms;';
+				}else
+				{
+					sqlStatement.text = 'SELECT * FROM customer_ms WHERE comm_member = "' + ((isMember)?1:0) + '";';
+				}
+				
+				if (logsON) {
+					trace("INFO:Fetching customers list["+sqlStatement.text+"]");
+				}
+				sqlStatement.sqlConnection = conn;
+				sqlStatement.addEventListener(SQLEvent.RESULT, getCustomerResultHandler);
+				sqlStatement.addEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
+				sqlStatement.execute();
+			}else
+			{
+				//make connection active and call itself again
+				getConnection();
 			}
-			sqlStatement.sqlConnection = conn;
-			sqlStatement.addEventListener(SQLEvent.RESULT, getCustomerResultHandler);
-			sqlStatement.addEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
-			sqlStatement.execute();
+			
 		}
 		
-		private function getCustomerResultHandler(SQLE:SQLEvent):void {
-			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerResultHandler);
-			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
-			//Update customer VO here
+		private function getCustomerResultHandler(event:SQLEvent):void {
+			var result:SQLResult = sqlStatement.getResult();
+			if(result.data && result.data.length>0)
+			{
+				customersList = new ArrayCollection(result.data);
+			}
 		}
 		
 		private function getCustomerErrorHandler(SQLEE:SQLErrorEvent):void {
 			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerResultHandler);
 			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerErrorHandler);
+			//Alert.show('Error Message:', SQLEE.error.message);
+			Alert.show('Details:', SQLEE.error.details);
+		}
+		
+		//GET CUSTOMERS BY ID
+		public function getCustomerByID(id:uint):void {
+			sqlStatement = new flash.data.SQLStatement();
+			sqlStatement.text = 'SELECT * FROM customer_ms WHERE cutomer_id = "' + id + '";';
+			if (logsON) {
+				trace(sqlStatement.text);
+			}
+			sqlStatement.sqlConnection = conn;
+			sqlStatement.addEventListener(SQLEvent.RESULT, getCustomerByIDResultHandler);
+			sqlStatement.addEventListener(SQLErrorEvent.ERROR, getCustomerByIDErrorHandler);
+			sqlStatement.execute();
+		}
+		
+		private function getCustomerByIDResultHandler(SQLE:SQLEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerByIDResultHandler);
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerByIDErrorHandler);
+			//Update customer VO here
+		}
+		
+		private function getCustomerByIDErrorHandler(SQLEE:SQLErrorEvent):void {
+			sqlStatement.removeEventListener(SQLEvent.RESULT, getCustomerByIDResultHandler);
+			sqlStatement.removeEventListener(SQLErrorEvent.ERROR, getCustomerByIDErrorHandler);
 			Alert.show('Error Message:', SQLEE.error.message);
 			Alert.show('Details:', SQLEE.error.details);
 		}

@@ -167,7 +167,7 @@
 		
 		<s:HGroup>
 			<s:Button label="Save" click="{saveCustomerInfo();}" id="saveBtn"/>
-			<s:Button label="Cancel" click="{PopUpManager.removePopUp(this)}"/>
+			<s:Button label="Cancel" click="{reset();PopUpManager.removePopUp(this)}"/>
 		</s:HGroup>
 		
 	</s:Form>
