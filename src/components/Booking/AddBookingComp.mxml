@@ -3,13 +3,16 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="100%"
 		 height="100%" verticalAlign="top" paddingTop="0" xmlns:renderer="renderer.*" xmlns:Booking="components.Booking.*"
-		 xmlns:components="com.hillelcoren.components.*" xmlns:components1="common.components.*">
+		 xmlns:components="com.hillelcoren.components.*" xmlns:components1="common.components.*"
+		 creationComplete="{init();}">
 	
 	<fx:Script>
 		<![CDATA[
 			import components.Customer.AddEditCustomerComp;
+			import components.SQLManager;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.core.FlexGlobals;
 			import mx.managers.PopUpManager;
 			
@@ -29,6 +32,14 @@
 				{first_name:"Dipen",contactnum1:"123456789",city:"Saibaba Nagar"},
 				{first_name:"Smith",contactnum1:"123456789",city:"Saibaba Nagar"}
 			]);
+			
+			[Bindable]
+			private var searchedCustomersList:ArrayCollection = new ArrayCollection([
+				{first_name:"Mukesh",contactnum1:"123456789",city:"Mahavir Nagar"},
+				{first_name:"Dipen",contactnum1:"123456789",city:"Saibaba Nagar"},
+				{first_name:"Smith",contactnum1:"123456789",city:"Saibaba Nagar"}
+			]);
+			
 			
 			private function handleAutoCompleteChange():void
 			{
@@ -52,6 +63,13 @@
 				
 				customerName = autoComplete.text ;
 			}
+			
+			private function init():void
+			{
+				//getSearchedCustomersList();
+				//this.addEventListener('searchedCustomersListEvent')
+			}
+			
 			
 		]]>
 	</fx:Script>
@@ -83,7 +101,7 @@
 					<s:Label text="Customer:" fontWeight="bold" textAlign="left"/>
 					<components1:AutoCompleteModified id="autoComplete"
 									   width="180"
-									   dataProvider="{ customers }" labelField="first_name"
+									   dataProvider="{ SQLManager.getInstance().customersList }" labelField="first_name"
 									   />
 					<!--<components:AutoComplete id="autoComplete" dataProvider="{ customers }" labelField="first_name" matchType="anyPart" 
 											 prompt="Input customer first name" width="100%" change="{ handleAutoCompleteChange() }"

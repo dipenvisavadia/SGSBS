@@ -1,15 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- containers\spark\SparkSkinnablePopUpContainerReturn.mxml -->
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
 	xmlns:s="library://ns.adobe.com/flex/spark"
 	xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:SGSComps="components.*"
+	initialize="{openSQLConnection()}"
 	applicationComplete="{goFullScreen(true);init();}" status="{appStatusStr}" title="{appTitleStr}" xmlns:Booking="components.Booking.*"
 	>
 	
 	<fx:Script>
 		<![CDATA[
 			import components.SQLManager;
+			
+			import events.CustomersListEvent;
 			
 			import mx.controls.Alert;
 			
@@ -24,10 +27,16 @@
 				
 			}
 			
+			private function openSQLConnection():void
+			{
+				sqlMngr = SQLManager.getInstance();
+				sqlMngr.getConnection();
+			}
 			private function init():void {
 				sqlMngr = SQLManager.getInstance();
 				sqlMngr.addEventListener(Event.COMPLETE, showLoginPanel);
 				sqlMngr.addEventListener('LOGIN_SUCCESS', function():void {mainViewStack.selectedIndex = 2;});
+				getAllCustomersList();
 			}
 			
 			private function showLoginPanel(E:Event):void {
@@ -95,7 +104,20 @@
 				this.stage.nativeWindow.close();
 			}
 			
-			
+			//func is used to fetch customers list  
+			private function getAllCustomersList():void
+			{
+				//this.addEventListener(CustomersListEvent.CUSTOMERS_LIST_EVENT,onCustomerListEvent);
+				Alert.show("getAllCustomersList");
+				SQLManager.getInstance().getAllCustomers(true);
+			}
+			//NOT IN USE NOW
+			/*private function onCustomerListEvent(event:CustomersListEvent):void
+			{
+				Alert.show("onCustomerListEvent["+event.customersList);
+				this.removeEventListener(CustomersListEvent.CUSTOMERS_LIST_EVENT,onCustomerListEvent);
+				
+			}	*/
 			
 		]]>
 	</fx:Script>
