@@ -2,58 +2,162 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	<fx:Metadata>
+		[Event(name="cancelEvent", type="flash.events.Event")] 
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			 
+			[Bindable]private var extraAcRooms:String = "0";
+			[Bindable]private var extraNonAcRooms:String = "0";
+			[Bindable]private var extraAcHours:String = "0.00";
+			[Bindable]private var serviceTaxPercStr:String = "10.30";
+			[Bindable]private var amountValStr:String = "0.00";
+			[Bindable]private var serviceTaxValStr:String = "0.00";
+			[Bindable]private var totalAmountValStr:String = "0.00";
+			
+			private function addSelectedServiceInBooking():void
+			{
+				reset();
+				dispatchEvent(new Event('cancelEvent'));
+			}
+			//reset all selection and cancel service selection
+			private function cancel():void
+			{
+				reset();
+				dispatchEvent(new Event('cancelEvent'));
+			}
+			
+			//reset all selection
+			private function reset():void
+			{
+				bookingTimeRBGrp.selectedValue = null;
+				acRoomRBGrp.selectedValue = null;
+				nonACRoomRBGrp.selectedValue = null;
+				extraAcHours = "0.00";
+				extraNonAcRooms = "0";
+				extraAcRooms = "0";
+				amountValStr = "0.00";
+				serviceTaxValStr = "0.00";
+				totalAmountValStr = "0.00";
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:RadioButtonGroup id="bookingTimeRBGrp"/>
+		<s:RadioButtonGroup id="acRoomRBGrp"/>
+		<s:RadioButtonGroup id="nonACRoomRBGrp"/>
+	</fx:Declarations>
 	<s:layout>
-		<s:BasicLayout/>
+		<s:BasicLayout />
 	</s:layout>
 	
-	<s:Panel title="Select Booking Date" width="180" height="500">
-		<s:layout>
-			<s:VerticalLayout/>
-		</s:layout>
-		<mx:DateChooser width="100%" height="100%"/>
-		<s:Label text="Timing:" fontWeight="bold"/>
-		<s:VGroup width="100%" height="100%">
-			<s:RadioButton value="FULL_DAY" label="6am-10pm(Full Day)" groupName="bookingTimeRBGrp"/>
-			<s:RadioButton value="HALF_DAY_1" label="6am-2pm(Half Day)" groupName="bookingTimeRBGrp"/>
-			<s:RadioButton value="HALF_DAY_2" label="4pm-10pm(Half Day)" groupName="bookingTimeRBGrp"/>
-			<s:RadioButton value="4_HR_1" label="10am-2pm(4 Hours)" groupName="bookingTimeRBGrp"/>
-			<s:RadioButton value="4_HR_2" label="6pm-10pm(4 Hours)" groupName="bookingTimeRBGrp"/>
-			<s:RadioButton value="Prathana_1" label="4pm-6.30pm(Prathana Sabha)" groupName="bookingTimeRBGrp"/>
-			<s:RadioButton value="Prathana_2" label="5pm-7.30pm(Prathana Sabha)" groupName="bookingTimeRBGrp"/>
-		</s:VGroup>
-	</s:Panel>
-	
-	
-	<s:BorderContainer width="500" borderStyle="solid" cornerRadius="8">
-		<s:layout>
-			<s:HorizontalLayout paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"/>
-		</s:layout>
+	<s:HGroup width="100%" height="100%" paddingLeft="8" paddingRight="8" paddingBottom="8" paddingTop="8" gap="12">
+		<s:Panel title="Select Booking Date" width="220" height="500">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center" paddingTop="8" paddingLeft="8" paddingRight="8" paddingBottom="8"
+								  gap="8"/>
+			</s:layout>
+			<mx:DateChooser width="98%" height="100%"/>
+			<s:Spacer height="12"/>
+			<s:Label text="Timing:" fontWeight="bold" width="100%" textAlign="left"/>
+			<s:VGroup width="100%" height="100%" gap="8">
+				<s:RadioButton value="FULL_DAY" label="6am-10pm(Full Day)" groupName="bookingTimeRBGrp"/>
+				<s:RadioButton value="HALF_DAY_1" label="6am-2pm(Half Day)" groupName="bookingTimeRBGrp"/>
+				<s:RadioButton value="HALF_DAY_2" label="4pm-10pm(Half Day)" groupName="bookingTimeRBGrp"/>
+				<s:RadioButton value="4_HR_1" label="10am-2pm(4 Hours)" groupName="bookingTimeRBGrp"/>
+				<s:RadioButton value="4_HR_2" label="6pm-10pm(4 Hours)" groupName="bookingTimeRBGrp"/>
+				<s:RadioButton value="Prathana_1" label="4pm-6.30pm(Prathana Sabha)" groupName="bookingTimeRBGrp"/>
+				<s:RadioButton value="Prathana_2" label="5pm-7.30pm(Prathana Sabha)" groupName="bookingTimeRBGrp"/>
+			</s:VGroup>
+		</s:Panel>
 		
-		<s:VGroup>
-			<s:Label text="A/C Rooms" fontWeight="bold"/>
-			<s:VGroup width="100%" height="100%">
-				<s:RadioButton  label="Ground Hall A/C+Ground on A/C" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label="Ground Hall A/C+Non A/C + 1st Floor A/C" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label="Ground Hall A/C" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label=" 1st Floor A/C+ 2nd Floor A/C" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label="4Hr A/C Hall" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label="Prathana Sabha with A/C" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label="Extra A/C Rooms" groupName="acRoomRBGrp"/>
-				<s:RadioButton  label="Extra A/C Hours" groupName="acRoomRBGrp"/>
-			</s:VGroup>	
+		
+		<s:VGroup width="500">
+			<s:Panel title="Select type of service" width="100%" cornerRadius="0">
+				<s:layout>
+					<s:HorizontalLayout paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
+										gap="12"/>
+				</s:layout>
+				
+				<s:VGroup>
+					<s:Label text="A/C Rooms" fontWeight="bold"/>
+					<s:VGroup width="100%" height="100%" gap="8">
+						<s:RadioButton  label="Ground Hall A/C+Ground on A/C" groupName="acRoomRBGrp"/>
+						<s:RadioButton  label="Ground Hall A/C+Non A/C + 1st Floor A/C" groupName="acRoomRBGrp"/>
+						<s:RadioButton  label="Ground Hall A/C" groupName="acRoomRBGrp"/>
+						<s:RadioButton  label=" 1st Floor A/C+ 2nd Floor A/C" groupName="acRoomRBGrp"/>
+						<s:RadioButton  label="4Hr A/C Hall" groupName="acRoomRBGrp"/>
+						<s:RadioButton  label="Prathana Sabha with A/C" groupName="acRoomRBGrp"/>
+						
+					</s:VGroup>	
+				</s:VGroup>
+				
+				<s:VGroup>
+					<s:Label text="Non A/C Rooms" fontWeight="bold"/>
+					<s:VGroup width="100%" height="100%" gap="8">
+						<s:RadioButton  label="2nd Floor+ Terrace" groupName="nonACRoomRBGrp"/>
+						<s:RadioButton  label="Only 2nd Floor" groupName="nonACRoomRBGrp"/>
+						<s:RadioButton  label="Only Terrace" groupName="nonACRoomRBGrp"/>
+						<s:RadioButton  label="4Hr Non A/C Hall" groupName="nonACRoomRBGrp"/>
+						<s:RadioButton  label="Prathana Sabha with out A/C" groupName="nonACRoomRBGrp"/>
+						
+					</s:VGroup>	
+				</s:VGroup>
+			</s:Panel>
+			
+			<s:Spacer height="12"/>
+			
+			<s:Group height="180" width="100%">
+				<s:Rect width="100%" height="100%">
+					<s:fill>
+						<s:SolidColor color="#999999"/>
+					</s:fill>
+				</s:Rect>
+				<s:RadioButton  label="Extra A/C Rooms" groupName="acRoomRBGrp" x="10" y="10" width="150"/>
+				<s:TextInput width="70" text="@{extraAcRooms}" skinClass="skins.RightAlignNumericTextInputSkin"
+							 restrict="0-9" x="150" y="10" />
+				
+				<s:RadioButton  label="Extra A/C Hours" groupName="acRoomRBGrp" x="10" y="60" width="150"/>
+				<s:TextInput width="70" skinClass="skins.RightAlignNumericTextInputSkin" text="@{extraAcHours}" 
+							 x="150" y="60"/>
+				
+				<s:RadioButton  label="Extra Non A/C Rooms" groupName="nonACRoomRBGrp" x="10" y="110" width="150"/>
+				<s:TextInput width="70" skinClass="skins.RightAlignNumericTextInputSkin" text="@{extraNonAcRooms}" 
+							 restrict="0-9" x="150" y="110"/>
+			</s:Group>
 		</s:VGroup>
 		
-		<s:VGroup>
-			<s:Label text="Non A/C Rooms" fontWeight="bold"/>
-			<s:VGroup width="100%" height="100%">
-				<s:RadioButton  label="2nd Floor+ Terrace" groupName="nonACRoomRBGrp"/>
-				<s:RadioButton  label="Only 2nd Floor" groupName="nonACRoomRBGrp"/>
-				<s:RadioButton  label="Only Terrace" groupName="nonACRoomRBGrp"/>
-				<s:RadioButton  label="4Hr Non A/C Hall" groupName="nonACRoomRBGrp"/>
-				<s:RadioButton  label="Prathana Sabha with out A/C" groupName="nonACRoomRBGrp"/>
-				<s:RadioButton  label="Extra Non A/C Hours" groupName="nonACRoomRBGrp"/>
-			</s:VGroup>	
-		</s:VGroup>
-	</s:BorderContainer>
+		<s:Panel title="Rates" width="300" cornerRadius="0" height="300">
+			<s:layout>
+				<s:VerticalLayout paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
+									gap="12"/>
+			</s:layout>
+			<s:Group width="100%">
+				
+				<s:Label text="Amount" x="0" y="0" width="150"/>
+				<s:Label width="100"  x="170" y="0" 
+							 text="{amountValStr}" styleName="small-amount"/>
+				
+				<s:Label text="Service Tax @ {serviceTaxPercStr} %" x="0" y="30" width="150"/>
+				<s:TextInput width="100" skinClass="skins.RightAlignNumericTextInputSkin" x="170" y="30" 
+							 text="{serviceTaxValStr}"/>
+				<!--
+				<s:Label text="Deposit" x="0" y="50" width="150"/>
+				<s:TextInput width="100" skinClass="skins.RightAlignNumericTextInputSkin" x="0" y="50" width="100"
+							 text="@{depositValStr}"/>
+				
+				<s:Label text="Extra Charges" x="0" y="75" width="150"/>
+				<s:TextInput width="100" skinClass="skins.RightAlignNumericTextInputSkin" x="0" y="75" width="100"/>
+				-->
+				<s:Label text="Total" x="0" y="80" width="150"/>
+				<s:Label width="100" styleName="large-amount" x="170" y="80"  text="{totalAmountValStr}"/>
+				
+			</s:Group>
+		</s:Panel>
+			
+	</s:HGroup>
 	
+	<s:Button label="OK" click="{addSelectedServiceInBooking();}" bottom="10" horizontalCenter="-110"/>
+	<s:Button label="Cancel" click="{cancel();}"  bottom="10" horizontalCenter="0"/>
 </s:Group>
