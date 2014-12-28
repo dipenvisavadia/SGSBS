@@ -82,3 +82,8 @@
     </fx:Script>
 	
 </s:WindowedApplication>
+
+
+///////// INSERT INTO pkg_ms
+INSERT INTO pkg_ms (pm_name, pm_desc, pm_cust_type, pm_for_gender, pm_from, pm_to, pm_rate, pm_isAC, pm_active, pm_lastmodified_by, pm_lastmodified_date)
+VALUES ('First Floor + Terrace', 'First floor for the celebration and terrace for meal arrangements and extra sitting arrangements', 'NONMEMBER', 'NA', 7, 22, 31150, 1, 1, 'smit', '2014/12/28 09:24:00');

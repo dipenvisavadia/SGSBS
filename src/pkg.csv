@@ -1,0 +1,68 @@
+pm_id,pm_name,pm_desc,pm_cust_type,pm_for_gender,pm_from,pm_to,pm_rate,pm_isAC,pm_active,pm_lastmodified_by,pm_lastmodified_date
+1,Ground Floor + Ground,Ground floor for the celebration and ground for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,14,31150,1,1,smit,12/28/2014 9:24
+2,Ground Floor + Ground,Ground floor for the celebration and ground for meal arrangements and extra sitting arrangements,NONMEMBER,NA,16,22,31150,1,1,smit,12/28/2014 9:24
+3,Ground Floor + Ground,Ground floor for the celebration and ground for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,22,44500,1,1,smit,12/28/2014 9:24
+4,First Floor + Terrace,First floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,14,31150,1,1,smit,12/28/2014 9:24
+5,First Floor + Terrace,First floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,16,22,31150,1,1,smit,12/28/2014 9:24
+6,First Floor + Terrace,First floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,22,44500,1,1,smit,12/28/2014 9:24
+7,Second Floor + Terrace,Second floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,14,40050,1,1,smit,12/28/2014 9:24
+8,Second Floor + Terrace,Second floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,16,22,40050,1,1,smit,12/28/2014 9:24
+9,Second Floor + Terrace,Second floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,22,62300,1,1,smit,12/28/2014 9:24
+10,Non-AC Second Floor + Terrace,Non-AC Second floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,14,22250,0,1,smit,12/28/2014 9:24
+11,Non-AC Second Floor + Terrace,Non-AC Second floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,16,22,22250,0,1,smit,12/28/2014 9:24
+12,Non-AC Second Floor + Terrace,Non-AC Second floor for the celebration and terrace for meal arrangements and extra sitting arrangements,NONMEMBER,NA,7,22,35600,0,1,smit,12/28/2014 9:24
+13,First Floor + Second Floor,"For celebration, meal arrangements and sitting arrangements",NONMEMBER,NA,7,14,53400,1,1,smit,12/28/2014 9:24
+14,First Floor + Second Floor,"For celebration, meal arrangements and sitting arrangements",NONMEMBER,NA,16,22,53400,1,1,smit,12/28/2014 9:24
+15,First Floor + Second Floor,"For celebration, meal arrangements and sitting arrangements",NONMEMBER,NA,7,22,71200,1,1,smit,12/28/2014 9:24
+16,First Floor + Ground Floor + Ground,"For celebration, meal arrangements and sitting arrangements",NONMEMBER,NA,7,14,53400,1,1,smit,12/28/2014 9:24
+17,First Floor + Ground Floor + Ground,"For celebration, meal arrangements and sitting arrangements",NONMEMBER,NA,16,22,53400,1,1,smit,12/28/2014 9:24
+18,First Floor + Ground Floor + Ground,"For celebration, meal arrangements and sitting arrangements",NONMEMBER,NA,7,22,71200,1,1,smit,12/28/2014 9:24
+19,Full Building,Full Building,NONMEMBER,NA,7,14,80100,1,1,smit,12/28/2014 9:24
+20,Full Building,Full Building,NONMEMBER,NA,16,22,80100,1,1,smit,12/28/2014 9:24
+21,Full Building,Full Building,NONMEMBER,NA,7,22,151300,1,1,smit,12/28/2014 9:24
+22,Only Ground Floor,Only ground floor for celebration,NONMEMBER,NA,7,14,26700,1,1,smit,12/28/2014 9:24
+23,Only Ground Floor,Only ground floor for celebration,NONMEMBER,NA,16,22,26700,1,1,smit,12/28/2014 9:24
+24,Only Ground Floor,Only ground floor for celebration,NONMEMBER,NA,7,22,35600,1,1,smit,12/28/2014 9:24
+25,Only First Floor,Only first floor for celebration,NONMEMBER,NA,7,14,26700,1,1,smit,12/28/2014 9:24
+26,Only First Floor,Only first floor for celebration,NONMEMBER,NA,16,22,26700,1,1,smit,12/28/2014 9:24
+27,Only First Floor,Only first floor for celebration,NONMEMBER,NA,7,22,35600,1,1,smit,12/28/2014 9:24
+28,Only Second Floor AC,Only second floor for celebration,NONMEMBER,NA,7,14,31150,1,1,smit,12/28/2014 9:24
+29,Only Second Floor AC,Only second floor for celebration,NONMEMBER,NA,16,22,31150,1,1,smit,12/28/2014 9:24
+30,Only Second Floor AC,Only second floor for celebration,NONMEMBER,NA,7,22,44500,1,1,smit,12/28/2014 9:24
+31,Only Second Floor Non-AC,Only second floor without AC for celebration,NONMEMBER,NA,7,14,17800,0,1,smit,12/28/2014 9:24
+32,Only Second Floor Non-AC,Only second floor without AC for celebration,NONMEMBER,NA,16,22,17800,0,1,smit,12/28/2014 9:24
+33,Only Second Floor Non-AC,Only second floor without AC for celebration,NONMEMBER,NA,7,22,26700,0,1,smit,12/28/2014 9:24
+34,Only Terrace,Only terrace for celebration,NONMEMBER,NA,7,14,13350,0,1,smit,12/28/2014 9:24
+35,Only Terrace,Only terrace for celebration,NONMEMBER,NA,16,22,13350,0,1,smit,12/28/2014 9:24
+36,Only Terrace,Only terrace for celebration,NONMEMBER,NA,7,22,22250,0,1,smit,12/28/2014 9:24
+37,Prarthana Sabha for 2 Hours,Prarthana Sabha for 2 Hours,NONMEMBER,NA,NA,NA,13350,1,1,smit,12/28/2014 9:24
+38,Prarthana Sabha for 4 Hours,Prarthana Sabha for 4 Hours,NONMEMBER,NA,NA,NA,22250,1,1,smit,12/28/2014 9:24
+39,Extra AC Charges (Ground Floor / First Floor),When used beyond limit; charges per hour,NONMEMBER,NA,NA,NA,2000,1,1,smit,12/28/2014 9:24
+40,Extra AC Charges (Second Floor),When used beyond limit; charges per hour,NONMEMBER,NA,NA,NA,2500,1,1,smit,12/28/2014 9:24
+41,Late Charges,When used beyond limit; charges per hour,NONMEMBER,NA,NA,NA,2000,1,1,smit,12/28/2014 9:24
+42,Ground Floor,Ground floor for any function; 5 hours AC free,MEMBER,NA,7,22,13500,1,1,smit,12/28/2014 9:24
+43,Ground Floor,Ground floor for Prarthana Sabha; 2 hours AC free,MEMBER,NA,NA,NA,5000,1,1,smit,12/28/2014 9:24
+44,First Floor,First floor for any function; 5 hours AC free,MEMBER,NA,7,22,13500,1,1,smit,12/28/2014 9:24
+45,First Floor,First floor for Prarthana Sabha; 2 hours AC free,MEMBER,NA,NA,NA,5000,1,1,smit,12/28/2014 9:24
+46,Second Floor,Second floor for marriage of daughter (3 Hours AC Free),MEMBER,DAUGHTER,7,22,880,1,1,smit,12/28/2014 9:24
+47,Second Floor,Second floor for engagement of daughter (2 Hours AC Free),MEMBER,DAUGHTER,7,22,880,1,1,smit,12/28/2014 9:24
+48,Second Floor,Second floor for Mandap Muhurat OR Sangeet Sandhya OR Marriage OR Reception of Son  (3 Hours AC Free),MEMBER,SON,7,22,1440,1,1,smit,12/28/2014 9:24
+49,Second Floor,Second floor for any function; 5 hours AC free,MEMBER,NA,7,22,20000,1,1,smit,12/28/2014 9:24
+50,Second Floor,Second floor for any function,MEMBER,NA,7,22,1440,0,1,smit,12/28/2014 9:24
+51,Second Floor,Second floor for Prarthana Sabha; 2 hours AC free,MEMBER,NA,NA,NA,8000,1,1,smit,12/28/2014 9:24
+52,Second Floor,Second floor for Prarthana Sabha,MEMBER,NA,NA,NA,0,0,1,smit,12/28/2014 9:24
+53,Terrace,Terrace for Prarthana Sabha,MEMBER,NA,NA,NA,0,0,1,smit,12/28/2014 9:24
+54,Guest Rooms (5 Non-AC Rooms + Passage),Guest rooms for night stay (Only in case of marriage),MEMBER,NA,NA,NA,1250,0,1,smit,12/28/2014 9:24
+55,Guest Room AC,One extra AC guest room for any function,MEMBER,NA,NA,NA,1700,1,1,smit,12/28/2014 9:24
+56,Guest Room Non-AC,One extra Non-AC guest room for any function,MEMBER,NA,NA,NA,575,0,1,smit,12/28/2014 9:24
+57,Ground Floor Catering,Decided Menu; charges per plate,MEMBER,NA,NA,NA,151,1,1,smit,12/28/2014 9:24
+58,Ground Floor Decoration,"Sofa, Chairs and Vidhi Mandap",MEMBER,NA,NA,NA,15000,1,1,smit,12/28/2014 9:24
+59,First Floor Catering,Decided Menu; charges per plate,MEMBER,NA,NA,NA,151,1,1,smit,12/28/2014 9:24
+60,First Floor Decoration,"Sofa, Chairs and Vidhi Mandap",MEMBER,NA,NA,NA,15000,1,1,smit,12/28/2014 9:24
+61,Second Floor Catering,Decided Menu; charges per plate,MEMBER,NA,NA,NA,75,0,1,smit,12/28/2014 9:24
+62,Second Floor Decoration,"Sofa, Chairs and Vidhi Mandap",MEMBER,NA,NA,NA,301,0,1,smit,12/28/2014 9:24
+63,Second Floor Decoration,"Sofa, Chairs and Vidhi Mandap",MEMBER,NA,NA,NA,15000,1,1,smit,12/28/2014 9:24
+64,Extra charge for less than 275 people after booking,"After booking second floor with terrace, if less then 275 people are present in function",MEMBER,NA,NA,NA,3000,0,1,smit,12/28/2014 9:24
+65,Extra charge for less than 275 people after booking,"After booking second floor with terrace, if less then 275 people are present in function",MEMBER,NA,NA,NA,5000,1,1,smit,12/28/2014 9:24
+66,Extra charge if Bride from other caste,If son is of our caste and daughter is of another caste,MEMBER,SON,NA,NA,11000,0,1,smit,12/28/2014 9:24
+67,Extra charge if Bride from other caste,If son is of our caste and daughter is of another caste,MEMBER,SON,NA,NA,25000,1,1,smit,12/28/2014 9:24

@@ -130,7 +130,7 @@
 						
 						<!--<s:CheckBox label="Member" x="10" y="10"/>-->
 						
-						<s:Label text="Name" x="10" y="30"/>
+						<s:Label text="Customer Name" x="10" y="30"/>
 						<s:TextInput width="200" y="50" x="10" text="@{customerName}"/>
 						<s:Spacer width="15"  x="210" y="30"/>
 						
@@ -138,7 +138,7 @@
 						<s:TextInput width="120" x="225" y="50"/>
 						
 						<s:Spacer width="15"  x="345" y="30"/>
-						<s:Label text="PAN CARD No"  x="360" y="30"/>
+						<s:Label text="PAN Card No"  x="360" y="30"/>
 						<s:TextInput width="120" x="360" y="50"/>
 						
 						
