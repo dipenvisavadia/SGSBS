@@ -18,6 +18,8 @@
 			
 			import renderer.CustomerSelectorItemRenderer;
 			
+			import spark.effects.easing.EasingFraction;
+			
 			
 			private function clearCustomerDetails():void
 			{
@@ -70,6 +72,16 @@
 				//this.addEventListener('searchedCustomersListEvent')
 			}
 			
+			//func is used to show package selector comp
+			private function openPackageSelectorComp():void
+			{
+				bookingNavigator.selectedIndex = 2;
+			}
+			
+			private function cancelServiceSelection():void
+			{
+				bookingNavigator.selectedIndex = 1;
+			}
 			
 		]]>
 	</fx:Script>
@@ -79,11 +91,17 @@
 		<s:RadioButtonGroup id="nonACRoomRBGrp"/>
 		<s:RadioButtonGroup id="customerMembershipTypeGrp"/>
 		
+		<s:Fade id="childViewShowEffect" alphaFrom="0" alphaTo="1" duration="1000" />
+		<s:Fade id="childViewHideEffect" alphaFrom="1" alphaTo="0" duration="1000" />
+		<!--<s:Sine id="sineEasing"
+				easeInFraction="0.3"/>
+		<s:Power id="powerEasing"
+				 exponent="4"/>-->
 	</fx:Declarations>
-	
-	<mx:ViewStack width="100%" height="100%" id="bookingNavigator">
+	<mx:ViewStack width="100%" height="100%" id="bookingNavigator" >
 		<s:NavigatorContent>
-			<s:BorderContainer width="400" height="150" horizontalCenter="0" verticalCenter="0">
+			<s:BorderContainer width="400" height="150" horizontalCenter="0" verticalCenter="0" 
+							   showEffect="{childViewShowEffect}" hideEffect="{childViewHideEffect}">
 				
 				<s:Rect width="100%" height="30">
 					<s:fill>
@@ -100,7 +118,7 @@
 				<s:HGroup width="100%" y="80" paddingLeft="8" paddingRight="8" paddingTop="8" >
 					<s:Label text="Customer:" fontWeight="bold" textAlign="left"/>
 					<components1:AutoCompleteModified id="autoComplete"
-									   width="180"
+									   width="180" 
 									   dataProvider="{ SQLManager.getInstance().customersList }" labelField="first_name"
 									   />
 					<!--<components:AutoComplete id="autoComplete" dataProvider="{ customers }" labelField="first_name" matchType="anyPart" 
@@ -116,7 +134,7 @@
 			</s:BorderContainer>
 
 		</s:NavigatorContent>
-		<s:NavigatorContent>
+		<s:NavigatorContent showEffect="{childViewShowEffect}" hideEffect="{childViewHideEffect}">
 			<s:Panel title="Enter Booking Details" width="100%" height="100%">
 				<s:layout>
 					<s:VerticalLayout/>
@@ -141,9 +159,8 @@
 						<s:Label text="PAN CARD No"  x="360" y="30"/>
 						<s:TextInput width="120" x="360" y="50"/>
 						
-						
-						
-						<s:Button label="Reset" fontWeight="bold" click="{clearCustomerDetails();}" x="10" y="90"/>
+						<s:Button label="Reset" fontWeight="bold" click="{clearCustomerDetails();}" x="500" y="50"/>
+						<s:Button label="Add Package" click="{openPackageSelectorComp()}" />
 					</s:Group>
 					
 					<mx:AdvancedDataGrid width="100%" height="100%">
@@ -155,6 +172,11 @@
 				</s:BorderContainer>
 			</s:Panel>	
 
+		</s:NavigatorContent>
+		
+		<!--package selector comp-->
+		<s:NavigatorContent showEffect="{childViewShowEffect}" hideEffect="{childViewHideEffect}">
+			<Booking:ServiceSelectorComp width="100%" height="100%" cancelEvent="{cancelServiceSelection();}"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>
 		<!--

@@ -6,3 +6,17 @@
 	fontWeight:bold;
 	color:#ff0000;
 }
+
+.large-amount
+{
+	fontWeight:normal;
+	color:#33ff33;
+	fontSize:15;
+}
+
+.small-amount
+{
+	fontWeight:normal;
+	color:#000000;
+	fontSize:12;
+}
